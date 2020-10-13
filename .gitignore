@@ -4,6 +4,5 @@
 
 # specific files
 # too big
-nih_pmids_index.csv
 config.json
 elsevier_fulltexts.json
