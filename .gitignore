@@ -1,6 +1,7 @@
 .vscode
 .ipynb_checkpoints
 *.pyc
+*.pdf
 
 # specific files
 # too big
