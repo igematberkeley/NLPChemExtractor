@@ -6,3 +6,5 @@
 # too big
 config.json
 elsevier_fulltexts.json
+
+brenda_data_collection/logs
