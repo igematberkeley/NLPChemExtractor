@@ -1,10 +1,11 @@
 .vscode
 .ipynb_checkpoints
 *.pyc
+__pycache__
 
 # specific files
 # too big
 config.json
-elsevier_fulltexts.json
+
 
 brenda_data_collection/logs
