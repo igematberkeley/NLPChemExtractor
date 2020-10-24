@@ -7,5 +7,6 @@ __pycache__
 # too big
 config.json
 
+brenda_data_collection/logs/
+brenda_data_collection/get_fullpapers/*
 
-brenda_data_collection/logs

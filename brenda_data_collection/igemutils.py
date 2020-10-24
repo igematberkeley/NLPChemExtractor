@@ -6,6 +6,7 @@ import urllib
 import os
 import json
 import pandas as pd
+import numpy as np
 
 ''' Uses EUtils to ocnvert PMID (str, no decimals) to DOI.
 '''
@@ -53,3 +54,54 @@ def get_json(json_file):
         out_dict = {}
         
     return out_dict
+
+# Metadata_dict key=pmid value=dict-with-field
+def generate_subset(metadata_dict, field, values, return_complement=False):
+    subset_dict = {}
+    complement_dict = {}
+    count_match = 0
+    count_nomatch = 0
+    
+    for value in values:
+        for pmid, meta in metadata_dict.items():
+            field_value = meta[field] == value
+            if field_value:
+                subset_dict[pmid] = meta
+                count_match += 1
+                continue;
+            count_nomatch +=1
+            if return_complement:
+                complement_dict[pmid] = meta
+
+    print(f"Count of {field} being {values}: {count_match}.")
+    if return_complement:
+        print(f"Count of {field} not matching {values}: {count_nomatch}.")
+    
+    return subset_dict, complement_dict
+
+'''
+Splits input_dict into (almost) even json files. 
+@base_outfile -> filename, excluding the part number and filetype. (E.g. '/path/to/dir/mysubset' --> will create mysubset1.json, mysubset2.json, etc in /path/to/dir/)
+'''
+def split_dict(input_dict: dict, n: int, base_ouftile: str):
+    # array of indices at which it switches to new file
+    lenn = len(input_dict)
+    min_len_per_file = lenn // n
+    ending_indices = np.sort(lenn - np.arange(0 , n) * min_len_per_file)
+    ending_indices = ending_indices.tolist()
+    
+    # generate filenames
+    outfiles = [f'{base_ouftile}{i}.json' for i in range(1, n+1)]
+    
+    temp_outdict = {}
+    rep = 0
+    for key, value in input_dict.items():
+        if rep >= ending_indices[0] or rep == lenn-1:
+            save_json(outfiles.pop(0), temp_outdict)
+            temp_outdict = {}
+            print(f"Saved part {n - len(ending_indices) + 1}.")
+            ending_indices.pop(0)
+
+        rep += 1
+        temp_outdict[key] = value    
+    print("All done!")
