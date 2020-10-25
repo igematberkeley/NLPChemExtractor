@@ -8,9 +8,9 @@ import json
 import pandas as pd
 import numpy as np
 
-''' Uses EUtils to ocnvert PMID (str, no decimals) to DOI.
+''' 
+Uses EUtils to ocnvert PMID (str, no decimals) to DOI.
 '''
-
 def pmid2doi(pmid: str):
     url = f'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id={pmid}'
     
@@ -30,6 +30,9 @@ def pmid2doi(pmid: str):
     
     return doi
 
+'''
+Uses a DOI and fetches its Unpaywall metadata; returns a dictionary representation of this metadata.
+'''
 def get_metadata(doi: str, email: str):
     url = f'https://api.unpaywall.org/v2/{doi}?email={email}'
     
@@ -40,12 +43,15 @@ def get_metadata(doi: str, email: str):
     else:
         return out_dict
     
-def save_json(json_file, contents):
+'''
+Handy dandy JSON functions
+'''
+def save_json(json_file: str, contents: dict):
     with open(json_file, 'w') as fp:
         json.dump(contents, fp)
         fp.close()
 
-def get_json(json_file):
+def get_json(json_file: str):
     if os.path.isfile(json_file):
         with open(json_file, 'r') as fp:
             out_dict = json.load(fp)
@@ -55,8 +61,13 @@ def get_json(json_file):
         
     return out_dict
 
-# Metadata_dict key=pmid value=dict-with-field
-def generate_subset(metadata_dict, field, values, return_complement=False):
+'''
+Creates a subset of the dict based on a criteria.
+ @Metadata_dict: key=pmid value=dict-containing-field
+ @Returns a tuple (subset_matched, subset_not_matched). 
+    If return_complement=True, then the subset_not_matched will be populated, else it's an empty dict.
+'''
+def generate_subset(metadata_dict: dict, field: str, values: list, return_complement=False):
     subset_dict = {}
     complement_dict = {}
     count_match = 0
