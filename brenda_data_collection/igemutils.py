@@ -1,5 +1,15 @@
 # A bunch of functions that are useful.
 
+'''
+Importing this file:
+- If igemutils.py is not in the same dir as your notebook, then do:
+>>> import sys
+>>> sys.path.insert(1, '/path/to/where/igemutils/is/')
+>>> import igemutils as igem
+- Else, just do:
+>>> import igemutils as igem
+'''
+
 import xml.etree.ElementTree as ET
 import requests
 import urllib
