@@ -19,7 +19,6 @@ import xml.etree.ElementTree as ET
 import numpy as np
 import sys
 import subprocess
-import PyPDF2
 import io
 
 import igemutils as igem
@@ -35,22 +34,32 @@ out_file = f'{io_dir}{out_base}{num_run}.json'
 '''
 ############ Setup ############
 '''
+# Function: Utility to convert pdf to text
+def pdf_to_text(filepath):
+    # print('Getting text content for {}...'.format(filepath))
+    process = subprocess.Popen(['pdf2txt.py', filepath], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    stdout, stderr = process.communicate()
+
+    if process.returncode != 0 or stderr:
+        raise OSError('Executing the command for {} caused an error:\nCode: {}\nOutput: {}\nError: {}'.format(filepath, process.returncode, stdout, stderr))
+    # print('Done.')
+    return stdout.decode('utf-8')
+
 # Function: Get paper
 def get_paper(pmid: str, metadata: dict) -> str:
     url = metadata['best_oa_location']['url_for_pdf']
-
-
-    # Save to tmp.pdf
+    out_pdf = f'get_fullpapers/oa/tmp{num_run}.pdf'
+    
     try:
         # Fetch the paper
         response = requests.get(url)
 
-        outtext = ''
-        with io.BytesIO(response.content) as f:
-            reader = PyPDF2.PdfFileReader(f)
-            for page in reader.pages:
-                outtext += page.extractText()
-        f.close()
+        # Save to tmp.pdf
+        with open(out_pdf, 'wb') as fd:
+            fd.write(response.content)
+            fd.close()
+
+        outtext = pdf_to_text(out_pdf)
     except Exception:
         return False
     except (requests.exceptions.RequestException,
@@ -94,6 +103,10 @@ def loop(subset, outfile):
                 break
             else:
                 calls += 1
+
+            # # tmp
+            if calls < 6936:
+                continue
 
             # checks if paper has been successfully fetched before
             if pmid in fulltext_dict:
