@@ -1,4 +1,0 @@
-rxns_abstract9_21.csv filter=lfs diff=lfs merge=lfs -text
-# *.json filter=lfs diff=lfs merge=lfs -text
-elsevier_fulltexts.json filter=lfs diff=lfs merge=lfs -text
-unpaywall_metadata_pmids.json filter=lfs diff=lfs merge=lfs -text
