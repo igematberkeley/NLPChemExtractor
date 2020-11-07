@@ -10,3 +10,7 @@ config.json
 brenda_data_collection/logs/
 brenda_data_collection/get_fullpapers/*
 
+# Ignore everything in data/ except Readme. This folder must be empty.
+data/*
+!data/Readme.md
+
