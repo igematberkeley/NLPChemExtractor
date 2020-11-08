@@ -162,6 +162,6 @@ def annotate(pmid, text):
 # as dictionary:
 
 for pmid, paper_dict in text_files.items():
-	annotate(pmid, paper_dict['originalText'])
+	annotate(pmid, paper_dict)
 	count += 1
 	break
