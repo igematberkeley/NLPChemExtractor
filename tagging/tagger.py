@@ -5,13 +5,16 @@ from chemdataextractor.nlp.pos import ChemCrfPosTagger
 import os
 import subprocess
 import sys
-#import spacy
-#import en_covido
+
+import urllib
 from urllib.request import urlopen
-import pubchempy as pcp
+import socket
+
 import time
 import re
 import igemutils as igem
+
+
 
 def install(package):
 	subprocess.check_call([sys.executable, "-m", "pip", "install", package])
@@ -65,22 +68,25 @@ def annotate(pmid, text):
 	d_found = []
 	bio_entities = []
 	sentences = sentences[0]
-	t_s_0 = time.time()
-	for i in range(len(sentences)):
+	tot = time.time()
+	times = 0
+	span_total = 0
+	for i in range(len(sentences))[:40]:
 		s = sentences[i]
+		t_s_0 = time.time()
 		
-		#doc = bio_ner(str(s))
 		# find regex for enzymes: 
 		bio_doc = [(m.group(0), m.start(0), m.end(0)) for m in re.finditer(r'[a-zA-Z]+ase\b', str(s))]
 
-
 		# bio_doc = [(ent.label_, ent.text) for ent in doc.ents]
 		# make sure to save
-		
+
 		try:
 			pos = (s.pos_tagged_tokens)
 		except Exception as e:
 			pos = cpt.tag(s.split())
+
+
 		
 		p = 0 # for indexing through pos tokens
 		
@@ -89,22 +95,32 @@ def annotate(pmid, text):
 		for r in range(len(spans)):
 			span = spans[r]
 			c = span.text
-			t_sp_0 = time.time()
 			# cleaning of chemical string: remove newlines -- too hard to remove dashes paired with new-lines..
 			
 			c = c.rstrip()
 
 			# From SMILES.ipynb
 			molecule = None
-			print()
 			if " " not in c:
-				try:
-					url_nih = 'http://cactus.nci.nih.gov/chemical/structure/' + c + '/smiles'
-					molecule = urlopen(url_nih).read().decode('utf8')
-					print(molecule)
-				except Exception as e:
-					print("oof" + c)
+				url_nih = 'http://cactus.nci.nih.gov/chemical/structure/' + c + '/smiles'
+				try:	
+					print("here!")
+					print(url_nih)
+					req = urlopen(url_nih, timeout = 3)
+				except urllib.error.HTTPError as e: # this would be NOT a chemical entity
+					print("no entity")
 					continue
+				except socket.timeout as t: # too slow, also probably not entity
+					print("also prob no entity")
+					print(c)
+					continue
+				else:
+					print("here")
+					if req.getcode() == 200:
+						molecule = req.read().decode('utf8')
+					else:
+						print(req.getcode())
+						raise
 
 			#ignore if not found
 			if not molecule:
@@ -125,8 +141,6 @@ def annotate(pmid, text):
 					break
 				p += 1
 			spans_list.append(span_dict)
-			print(time.time()-t_sp_0)
-			print("sp")
 
 		s_found.append(s.text)
 		d_found.append(spans_list)
@@ -135,9 +149,15 @@ def annotate(pmid, text):
 		indices.append(i)
 		bio_entities.append(bio_doc)
 		tagged.append(pos)
-		print(time.time()-t_s_0)
-		print("len of spans:" + str(len(spans)))
+		if len(spans) > 0:
+			times += time.time() - t_s_0
+			span_total += len(spans)
+			#print(time.time()-t_s_0)
+			
+	print("Avg")
+	print(times/span_total)
 	t_an = time.time()
+	print(t_an - tot)
 	annotations = {"sentence": s_found,
 					"start": starts,
 					"end": ends,
@@ -161,7 +181,8 @@ def annotate(pmid, text):
 
 # as dictionary:
 
-for pmid, paper_dict in text_files.items():
-	annotate(pmid, paper_dict)
+for pmid, text in text_files.items():
+	annotate(pmid, text)
 	count += 1
-	break
+	if count > 10:
+		break
