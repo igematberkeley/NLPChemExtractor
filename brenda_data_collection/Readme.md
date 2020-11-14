@@ -12,3 +12,4 @@ From ```brenda_rxns_incomplete.csv```, filter to only the refs with PMID's, then
 
 ## Misc
 - ```pmid_paper_collection.ipynb``` - just looking at the "Open Access Subset" on PubMed. 
+- Some locations have changed due since removing Git LFS. Check the google drive if you can't find certain files.
