@@ -50,9 +50,10 @@ else:
 
 #if there's a cache, reopen it:
 smiles_cache = {} #keys are names, SMILES are values
+cache_name = 'smiles_cache.json' # IF RUNNING IN PARALLEL: change to f"smiles_cache_{out_name}.json"
 
-if os.path.exists('smiles_cache.json'):
-	smiles_cache = igem.get_json("smiles_cache.json")
+if os.path.exists(cache_name):
+	smiles_cache = igem.get_json(cache_name)
 
 #initiate tagger
 cpt = ChemCrfPosTagger()
@@ -76,18 +77,17 @@ def annotate(doi_pmid, text):
 			f.write("{} out of {} completed".format(count,len(text_files.keys())))
 			f.write("elapsed time: " + str(time.time() - start))
 
-		igem.save_json("smiles_cache.json", smiles_cache)
+		igem.save_json(cache_name, smiles_cache)
 
-
-
+	print()
 	print("{} out of {} completed".format(count,len(text_files.keys()))) 
 	print(t1 - t0)
+
 	t0 = t1
 	try:
-		sentences = [p.sentences for p in Document.from_string(text.encode())] # this has character-based indices
+		sentences = [p.sentences for p in Document.from_string(text.encode()) if hasattr(p, 'sentences')] # this has character-based indices
 	except:
-		print(text)
-		raise
+		sentences = [[]]
 	sentence_found = []
 	starts = []
 	ends = []
@@ -153,6 +153,7 @@ def annotate(doi_pmid, text):
 			# Tries to get smiles on entire string, then if it doesn't work, deals with the case where c is a conglomerate of chemicals seperated by spaces.
 			name_smiles_tuples = get_smiles(s,c)
 			print(name_smiles_tuples)
+			print()
 
 			# Ignore chemical if not found
 			if not name_smiles_tuples or (len(name_smiles_tuples) == 1 and not name_smiles_tuples[0][0]):
@@ -200,6 +201,7 @@ def annotate(doi_pmid, text):
 			#print(time.time()-t_s_0)
 	
 	# Create a dataframe with  annotations from a given literature.
+	print()
 	print("Average time per each span (one identified chemical entity): " + str(times/(span_total + 0.01)))
 	t_an = time.time()
 	print("Time for all sentences in text: " + str(t_an - tot))
@@ -267,10 +269,11 @@ def make_you_smile(sent, c):
 		except UnicodeEncodeError as e:
 			print("Unicode Encode Error: " + str(e))
 		except KeyboardInterrupt:
-			igem.save_json("smiles_cache.json", smiles_cache)
+			igem.save_json(cache_name, smiles_cache)
+			print()
 			print("Restart from this position: " + str(pointer))
 			raise
-		except:
+		except Exception as e:
 			print("uh oh, some connection error :(")
 			with open("output_ner/connection_errors_{}.txt".format(out_name), "w+") as fh:
 				fh.write("URLLIB CONNECTION ERROR: " + str(sent))
@@ -339,11 +342,19 @@ try:
 		entry = iter_dict[pointer]
 		doi_pmid = entry[0]
 		text = entry[1]
-		if text and isinstance(text, str):
-			annotate(doi_pmid, text)
-		count += 1
+		try: 
+			if text and isinstance(text, str):
+				annotate(doi_pmid, text)
+			count += 1
+		except Exception as e:
+			print()
+			print("here's a paper error!: " + doi_pmid)
+			with open("output_ner/connection_errors_{}.txt".format(out_name), "w+") as fh:
+				fh.write("General paper error: " + str(doi_pmid))
+
+			continue
 except KeyboardInterrupt:
-	igem.save_json("smiles_cache.json", smiles_cache)
+	igem.save_json(cache_name, smiles_cache)
 	print("Restart from this position: " + str(pointer))
 
 	pass
