@@ -1,8 +1,17 @@
-from chemdataextractor.doc import Document
+
+
 import pandas as pd
 import json
+import igemutils as igem
+
+import time
+import re
+import collections
+
+from chemdataextractor.doc import Document # referenced as CDE in some places
 from chemdataextractor.nlp.pos import ChemCrfPosTagger
-import pubchempy as pcp
+
+
 import os
 import subprocess
 import sys
@@ -10,10 +19,10 @@ import sys
 import urllib
 from urllib.request import urlopen
 import socket
+import pubchempy as pcp
 
-import time
-import re
-import igemutils as igem
+
+
 
 ### TAGGER CODE TO CREATE A CSV WITH A ROW FOR EACH SENTENCE. ###
 # Input Data: .json with Key (String) doi_pmid/some form of id & Value (String) as full text or abstract
@@ -21,29 +30,33 @@ import igemutils as igem
 # 				"end": ends, "indices": indices, "sentence_pos": tagged, "biological_entities": bio_entities, "chemical_entities": chemicals_found
 
 
-# Install cirpy, Python interface for the Chemical Identifier Resolver (CIR). (https://cirpy.readthedocs.io/en/latest/)
-def install(package):
-	subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-
-try:
-	import cirpy
-except:
-	install("cirpy")
-	import cirpy
-
 # Set up with input path to load in JSON and prep a CSV to write to
 input_path = sys.argv[1]
 #out = sys.argv[2]
 
-text_files = igem.get_json(input_path)
+csv_file = 'output_ner/{}.csv'.format("sentence_annotations") # can uncomment previous line, change stuff inside format to out to modify name of file
+
+if not os.path.exists('output_ner'):
+	os.makedirs('output_ner')
+
+# read in json properly
+if os.path.exists(input_path):
+	text_files = igem.get_json(input_path)
+else:
+	raise Exception("HEY DUMMY! YOU DIDN'T PASS IN A PROPER INPUT FILE! WHY DON'T YOU TRY AGAIN!")
+
+
+#if there's a cache, reopen it:
+smiles_cache = {} #keys are names, SMILES are values
+
+if os.path.exists('smiles_cache.json'):
+	smiles_cache = igem.get_json("smiles_cache.json")
+
+#initiate tagger
 cpt = ChemCrfPosTagger()
 
-from urllib.request import urlopen
-
-#bio_ner = en_covido.load()
-
+# tracking counts, for monitoring runs
 count = 0 
-csv_file = 'output_ner/{}.csv'.format("all")
 t0 = time.time()
 successful_spans = 0
 
@@ -70,24 +83,22 @@ def annotate(doi_pmid, text):
 	tagged = []
 	chemicals_found = []
 	bio_entities = []
-	sentences = sentences[0]
+	bio_entities_with_pos = []
+
+	names_found = []
+	smiles_found = []
+	names_and_smiles = []
+
+	sentences = sentences[0] # weird nesting from CDE, do not change
 	tot = time.time()
 	times = 0
 	span_total = 0
 	successful_spans = 0
 
-	for i in range(len(sentences))[:40]:
+	for i in range(len(sentences)): #TODO: change this to all sentences
 		s = sentences[i]
 		t_s_0 = time.time()
-		
-		# Enzymes in sentence (using regex). 
-		# TO DO: Either use BRENDA corpus to match or another enzyme tagger, this is trash. 
-		# look for -ase or -in that's not in the common English dictionary (create this list by removing enzymes from -)
-		# Check if the word before it is a noun or noun phrase or a ':' or "-" or ";" or ","
-		bio_doc = [(m.group(0), m.start(0), m.end(0)) for m in re.finditer(r'[a-zA-Z]+ase\b', str(s))]
 
-		# bio_doc = [(ent.label_, ent.text) for ent in doc.ents]
-		# make sure to save
 
 		# Part of Speech Tagger (used later for NLP)
 		try:
@@ -95,63 +106,82 @@ def annotate(doi_pmid, text):
 		except Exception as e:
 			pos = cpt.tag(s.split())
 		
-		spans = s.cems
-		spans_list = []
+		spans = s.cems # generating here for enzyme finding
+		span_names = [c.text for c in spans]
+
+
+		# Enzymes in sentence (using regex)
+		# attempt to get full enzyme names:
+		enzyme_names = []
+		enzyme_names_locs = []
+		for i_w in range(len(pos)):
+		    word = pos[i_w][0]
+		    for m in re.finditer(r'[a-zA-Z]+ase\b', word):
+		        enzyme = m.group(0)
+		        i_l = i_w
+		        while i_l > 0:
+		            prev_word = pos[i_l][0]
+		            prev_pos = pos[i_l][1]
+		            if prev_word in span_names:
+		                enzyme = prev_word + " " + enzyme
+		            elif prev_pos not in ":;{}|,./<>?!":
+		                break
+		            i_l -=1
+		        enzyme_names.append(enzyme)
+		        enzyme_names_locs.append((enzyme, i_l, i_w))
+
+		spans_sent = []
+		smiles_sent = []
+		names_sent = []
+		names_smiles_sent = []
 		for r in range(len(spans)):
 			span = spans[r]
 			c = span.text
 
 			# Tries to get smiles on entire string, then if it doesn't work, deals with the case where c is a conglomerate of chemicals seperated by spaces.
-			# Added further screening to remove lowercase letters & if more than the threshold of 6 are None, set all smiles = None. 
-			smiles = [make_you_smile(c)]
-			if (smiles == [None]):
-				if " " in c:
-					chem_chunk = c.split(" ")
-					print(chem_chunk)
-					count = 0
-					null_count = 0
-					while null_count < 6 and count < len(chem_chunk):
-						x = chem_chunk[count]
-						if not x.isnumeric() or not (len(x) == 1 and x.islower()):
-							result = make_you_smile(x)
-							smiles.append(result)
-							if not result:
-								null_count += 1
-						count += 1
-					if null_count == 5:
-						smiles = None
-			print(smiles)				
-					
+			name_smiles_tuples = get_smiles(c)
+			print(name_smiles_tuples)
+
 			# Ignore chemical if not found
-			if not smiles:
+			if not name_smiles_tuples or (len(name_smiles_tuples) == 1 and not name_smiles_tuples[0][0]):
 				continue
+			successful_spans += len(name_smiles_tuples)
 
-			span_dict = {"text": c,
-						"start": span.start,
-						"end": span.end,
-						"smiles": smiles
-			}
+			for name, smiles in name_smiles_tuples:
+				span_dict = {"text": name,
+							"start": span.start,
+							"end": span.end,
+							"smiles": smiles
+				}
 
-			# Indexing through pos tokens to find chemical entities
-			p = 0
-			while p < len(pos):
-				token = pos[p][0]
-				if token == span.text:
-					span_dict["pos"] = pos[p][1]
-					break
-				p += 1
-			spans_list.append(span_dict)
+				# Indexing through pos tokens to find chemical entities
+				p = 0
+				while p < len(pos):
+					token = pos[p][0]
+					if token == span.text:
+						span_dict["pos"] = pos[p][1]
+						break
+					p += 1
+				spans_sent.append(span_dict)
+				names_sent.append(name)
+				smiles_sent.append(smiles)
+				names_smiles_sent.append((name, smiles))
 
 		# Leave for loop and add entries for each sentence in a given literature to lists
 		sentence_found.append(s.text)
-		chemicals_found.append(spans_list)
-		# raw_smiles_found.append() - # TO DO: list of raw smiles as strings. 
-		# smiles_chem_maps.append() - # TO DO: tuples between chemical name and smiles. Do something within the for loop. 
+		chemicals_found.append(spans_sent)
+		names_found.append(",, ".join(names_sent)) # two commas and a space for redundancy, since IUPAC has commas
+		smiles_found.append(",, ".join(smiles_sent))
+		names_and_smiles.append(name_smiles_tuples)
+
 		starts.append(s.start)
 		ends.append(s.end)
 		indices.append(i)
-		bio_entities.append(bio_doc)
+		bio_entities.append(", ".join(enzyme_names))
+		bio_entities_with_pos.append(enzyme_names_locs)
 		tagged.append(pos)
+
+
 		if len(spans) > 0:
 			times += time.time() - t_s_0
 			span_total += len(spans)
@@ -163,20 +193,27 @@ def annotate(doi_pmid, text):
 	t_an = time.time()
 	print("Time for all sentences in text: " + str(t_an - tot))
 	print("Successfully classified spans in paper: " + str(successful_spans/(span_total + 0.01)))
+
+	# put all lists into a dictionary and coerce to dataframe! good riddance
 	annotations = {"sentence": sentence_found,
 					"start": starts,
 					"end": ends,
 					"indices": indices,
 					"sentence_pos": tagged,
-					"biological_entities": bio_entities,
-					"chemical_entities": chemicals_found}
+					"enzymes": bio_entities,
+					"enzyme_locations": bio_entities_with_pos,
+					"chemical_entities_full": chemicals_found,
+					"chemical_names": names_found,
+					"chemical_smiles": smiles_found,
+					"name_smile_tuples": names_and_smiles}
 	annots_csv = pd.DataFrame(annotations)
 
 	annots_csv["lit_id"] = doi_pmid
 
 	# Reorder our dataframe.
 	annots_csv = annots_csv[["lit_id", "indices", "start", "end", "sentence", "sentence_pos",
- 						"chemical_entities", "biological_entities"]]
+ 						"enzymes", "enzyme_locations","chemical_entities_full",
+ 						"chemical_names", "chemical_smiles", "name_smile_tuples"]]
 
 	# Add the datagram to our csv_file, appending if it exists and creating a new one if not.
 	if os.path.isfile(csv_file):
@@ -184,10 +221,9 @@ def annotate(doi_pmid, text):
 	else:
 		annots_csv.to_csv(csv_file, index=False)
 
-# TO DO: Add a cache to minimize calls!!!!!!!!!!! 
-
 def make_you_smile(c):
 	global successful_spans
+	global smiles_cache
 	smiles = None  # :(
 	
 	# Cleaning of chemical string.
@@ -203,42 +239,89 @@ def make_you_smile(c):
 		c.replace(dumb_dash, "\u002d")
 	
 	print(c)
-	url_nih = 'http://cactus.nci.nih.gov/chemical/structure/' + c + '/smiles'
-
-	try:	
-		print(url_nih)
-		req = urlopen(url_nih, timeout = 3)			
-	except urllib.error.HTTPError as e:
-		print("No entity returned.")
-	except socket.timeout as t:
-		print("Taking too long, likely an invalid entity.")
-		print(c)
-	except UnicodeEncodeError as e:
-		print("Unicode Encode Error: " + str(e))
+	if c.lower() in smiles_cache:
+		smiles = smiles_cache[c.lower()]
 	else:
-		if req.getcode() == 200:
-			print("It worked!")
-			smiles = req.read().decode('utf8')
-			successful_spans += 1
-		else:
-			# Try pubchempy is this  doesn't work.
-			try: 
-				molecule = pcp.get_compounds(c, 'name')
-				# Gets different IDs from the same compound name, that is why molecule[0]
-				smiles = molecule[0].canonical_smiles
-				print("PubChemPy worked!")
-				successful_spans += 1
-			except:
-				print(req.getcode())
-				raise
-	return smiles  # :) 
+		url_nih = 'http://cactus.nci.nih.gov/chemical/structure/' + c + '/smiles'
 
+		try:	
+			print(url_nih)
+			req = urlopen(url_nih, timeout = 3)			
+		except urllib.error.HTTPError as e:
+			print("No entity returned.")
+		except socket.timeout as t:
+			print("Taking too long, likely an invalid entity.")
+			print(c)
+		except UnicodeEncodeError as e:
+			print("Unicode Encode Error: " + str(e))
+		else:
+			if req.getcode() == 200:
+				print("It worked!")
+				smiles = req.read().decode('utf8')
+				smiles_cache[c.lower()] = smiles
+			else:
+				# Try pubchempy is this  doesn't work.
+				try: 
+					molecule = pcp.get_compounds(c, 'name')
+					# Gets different IDs from the same compound name, that is why molecule[0]
+					smiles = molecule[0].canonical_smiles
+					print("PubChemPy worked!")
+					smiles_cache[c.lower()] = smiles
+					
+				except:
+					print(req.getcode())
+					raise
+
+	if smiles is None:
+		smiles_cache[c.lower()] = None
+		return (None, None)
+	else:
+		return c, smiles # :)
+
+def chunk_filter(substr):
+		if substr.isnumeric():
+			return False
+		elif len(substr) == 1 and substr.islower():
+			return False
+		elif len(substr) == 1 and substr not in "HBCNOFPSIWU": # a capital letter not in the substring
+			return False
+		return True
+
+def get_smiles(c):
+	data = [make_you_smile(c)]
+	print(data)
+	if (data == [None]):
+		data = []
+		if " " in c:
+			chem_chunk = c.split(" ")
+			print(chem_chunk)
+			none_count = 0 
+			for ch in chem_chunk:
+				if none_count >=5:
+					data = None # abort this chunk. 
+					break 
+				if chunk_filter(ch):
+					data.append(make_you_smile(ch))
+				else:
+					none_count+=1 
+	return data
 
 # Call annotate on every literature in a given .json and create a csv file. 
-# TO DO: Keyboard interrupting made easy in case things go wrong and are noticed. Also save the cache to a file. 
-for doi_pmid, text in text_files.items():
-	# TO DO: when text is not string skip or if it's empty. 
-	annotate(doi_pmid, text)
-	count += 1
-	if count > 15:
-		break
+
+# order the items:
+sorted_dictionary_by_pmid = collections.OrderedDict(sorted(text_files.items()))
+
+try: 
+	start = 0 ## CHANGE IF RESUMING!
+	iter_dict = list(sorted_dictionary_by_pmid.items())
+	for pointer in range(len(iter_dict))[start:]:
+		entry = iter_dict[pointer]
+		doi_pmid = entry[0]
+		text = entry[1]
+		annotate(doi_pmid, text)
+		count += 1
+except KeyboardInterrupt:
+	igem.save_json("smiles_cache.json", smiles_cache)
+	print("Restart from this position: " + str(pointer))
+
+	pass
