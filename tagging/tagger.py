@@ -80,7 +80,10 @@ def annotate(doi_pmid, text):
 		s = sentences[i]
 		t_s_0 = time.time()
 		
-		# Enzymes in sentence (using regex)
+		# Enzymes in sentence (using regex). 
+		# TO DO: Either use BRENDA corpus to match or another enzyme tagger, this is trash. 
+		# look for -ase or -in that's not in the common English dictionary (create this list by removing enzymes from -)
+		# Check if the word before it is a noun or noun phrase or a ':' or "-" or ";" or ","
 		bio_doc = [(m.group(0), m.start(0), m.end(0)) for m in re.finditer(r'[a-zA-Z]+ase\b', str(s))]
 
 		# bio_doc = [(ent.label_, ent.text) for ent in doc.ents]
@@ -99,16 +102,26 @@ def annotate(doi_pmid, text):
 			c = span.text
 
 			# Tries to get smiles on entire string, then if it doesn't work, deals with the case where c is a conglomerate of chemicals seperated by spaces.
+			# Added further screening to remove lowercase letters & if more than the threshold of 6 are None, set all smiles = None. 
 			smiles = [make_you_smile(c)]
-			print(smiles)
 			if (smiles == [None]):
 				if " " in c:
 					chem_chunk = c.split(" ")
 					print(chem_chunk)
-					smiles = [make_you_smile(x) for x in chem_chunk if not x.isnumeric()]
-					# also screen to remove lowercase letters
-					# if more then threshold are None, set all smiles = None. 
-
+					count = 0
+					null_count = 0
+					while null_count < 6 and count < len(chem_chunk):
+						x = chem_chunk[count]
+						if not x.isnumeric() or not (len(x) == 1 and x.islower()):
+							result = make_you_smile(x)
+							smiles.append(result)
+							if not result:
+								null_count += 1
+						count += 1
+					if null_count == 5:
+						smiles = None
+			print(smiles)				
+					
 			# Ignore chemical if not found
 			if not smiles:
 				continue
@@ -132,8 +145,8 @@ def annotate(doi_pmid, text):
 		# Leave for loop and add entries for each sentence in a given literature to lists
 		sentence_found.append(s.text)
 		chemicals_found.append(spans_list)
-		# raw_smiles_found.append() - list of raw smiles
-		# smiles_chem_maps.append() - map between chemical name and smiles
+		# raw_smiles_found.append() - # TO DO: list of raw smiles as strings. 
+		# smiles_chem_maps.append() - # TO DO: tuples between chemical name and smiles. Do something within the for loop. 
 		starts.append(s.start)
 		ends.append(s.end)
 		indices.append(i)
@@ -170,6 +183,8 @@ def annotate(doi_pmid, text):
 		annots_csv.to_csv(csv_file, mode='a', header=False, index=False)
 	else:
 		annots_csv.to_csv(csv_file, index=False)
+
+# TO DO: Add a cache to minimize calls!!!!!!!!!!! 
 
 def make_you_smile(c):
 	global successful_spans
@@ -220,7 +235,9 @@ def make_you_smile(c):
 
 
 # Call annotate on every literature in a given .json and create a csv file. 
+# TO DO: Keyboard interrupting made easy in case things go wrong and are noticed. Also save the cache to a file. 
 for doi_pmid, text in text_files.items():
+	# TO DO: when text is not string skip or if it's empty. 
 	annotate(doi_pmid, text)
 	count += 1
 	if count > 15:
