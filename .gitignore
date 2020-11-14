@@ -14,3 +14,7 @@ brenda_data_collection/get_fullpapers/*
 data/*
 !data/Readme.md
 
+# tagging output
+output_ner/
+tagging/*.log
+tagging/smiles_cache.json
