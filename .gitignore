@@ -17,4 +17,4 @@ data/*
 # tagging output
 output_ner/
 tagging/*.log
-tagging/smiles_cache.json
+tagging/*.json
