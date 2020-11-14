@@ -33,8 +33,9 @@ import pubchempy as pcp
 # Set up with input path to load in JSON and prep a CSV to write to
 input_path = sys.argv[1]
 #out = sys.argv[2]
+out_name = input_path.split("/")[-1].split(".")[0]
 
-csv_file = 'output_ner/{}.csv'.format("sentence_annotations") # can uncomment previous line, change stuff inside format to out to modify name of file
+csv_file = 'output_ner/{}_{}.csv'.format("sentence_annotations", out_name) # can uncomment previous line, change stuff inside format to out to modify name of file
 
 if not os.path.exists('output_ner'):
 	os.makedirs('output_ner')
@@ -43,7 +44,8 @@ if not os.path.exists('output_ner'):
 if os.path.exists(input_path):
 	text_files = igem.get_json(input_path)
 else:
-	raise Exception("HEY DUMMY! YOU DIDN'T PASS IN A PROPER INPUT FILE! WHY DON'T YOU TRY AGAIN!")
+	raise Exception("supply correct input file")
+
 
 
 #if there's a cache, reopen it:
@@ -58,6 +60,7 @@ cpt = ChemCrfPosTagger()
 # tracking counts, for monitoring runs
 count = 0 
 t0 = time.time()
+start = time.time()
 successful_spans = 0
 
 # annotate(doi_pmid, text) function: Appends to csv_file annotations from each sententence of a given literature text. 
@@ -68,6 +71,15 @@ def annotate(doi_pmid, text):
 	global t0
 	
 	t1 = time.time()
+	if (count % 10 == 0):
+		with open("{}.log".format(out_name), "w+") as f:
+			f.write("{} out of {} completed".format(count,len(text_files.keys())))
+			f.write("elapsed time: " + str(time.time() - start))
+
+		igem.save_json("smiles_cache.json", smiles_cache)
+
+
+
 	print("{} out of {} completed".format(count,len(text_files.keys()))) 
 	print(t1 - t0)
 	t0 = t1
@@ -188,11 +200,10 @@ def annotate(doi_pmid, text):
 			#print(time.time()-t_s_0)
 	
 	# Create a dataframe with  annotations from a given literature.
-	print("Avg")
-	print("Time per each span (one identified chemical entity): " + str(times/(span_total + 0.01)))
+	print("Average time per each span (one identified chemical entity): " + str(times/(span_total + 0.01)))
 	t_an = time.time()
 	print("Time for all sentences in text: " + str(t_an - tot))
-	print("Successfully classified spans in paper: " + str(successful_spans/(span_total + 0.01)))
+	print("Successfully classified span percent in paper: " + str(successful_spans/(span_total + 0.01)))
 
 	# put all lists into a dictionary and coerce to dataframe! good riddance
 	annotations = {"sentence": sentence_found,
