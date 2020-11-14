@@ -151,7 +151,7 @@ def annotate(doi_pmid, text):
 			c = span.text
 
 			# Tries to get smiles on entire string, then if it doesn't work, deals with the case where c is a conglomerate of chemicals seperated by spaces.
-			name_smiles_tuples = get_smiles(c)
+			name_smiles_tuples = get_smiles(s,c)
 			print(name_smiles_tuples)
 
 			# Ignore chemical if not found
@@ -184,7 +184,7 @@ def annotate(doi_pmid, text):
 		chemicals_found.append(spans_sent)
 		names_found.append(",, ".join(names_sent)) # two commas and a space for redundancy, since IUPAC has commas
 		smiles_found.append(",, ".join(smiles_sent))
-		names_and_smiles.append(name_smiles_tuples)
+		names_and_smiles.append(names_smiles_sent)
 
 		starts.append(s.start)
 		ends.append(s.end)
@@ -232,8 +232,9 @@ def annotate(doi_pmid, text):
 	else:
 		annots_csv.to_csv(csv_file, index=False)
 
-def make_you_smile(c):
+def make_you_smile(sent, c):
 	global successful_spans
+	global out_name
 	global smiles_cache
 	smiles = None  # :(
 	
@@ -265,6 +266,11 @@ def make_you_smile(c):
 			print(c)
 		except UnicodeEncodeError as e:
 			print("Unicode Encode Error: " + str(e))
+		except:
+			print("uh oh, some connection error :(")
+			with open("output_ner/connection_errors_{}.txt".format(out_name), "w+") as fh:
+				fh.write("URLLIB CONNECTION ERROR: " + sent)
+			pass
 		else:
 			if req.getcode() == 200:
 				print("It worked!")
@@ -298,8 +304,8 @@ def chunk_filter(substr):
 			return False
 		return True
 
-def get_smiles(c):
-	data = [make_you_smile(c)]
+def get_smiles(sent, c):
+	data = [make_you_smile(sent, c)]
 	print(data)
 	if (data == [None]):
 		data = []
@@ -312,7 +318,7 @@ def get_smiles(c):
 					data = None # abort this chunk. 
 					break 
 				if chunk_filter(ch):
-					data.append(make_you_smile(ch))
+					data.append(make_you_smile(sent, ch))
 				else:
 					none_count+=1 
 	return data
@@ -329,7 +335,8 @@ try:
 		entry = iter_dict[pointer]
 		doi_pmid = entry[0]
 		text = entry[1]
-		annotate(doi_pmid, text)
+		if text:
+			annotate(doi_pmid, text)
 		count += 1
 except KeyboardInterrupt:
 	igem.save_json("smiles_cache.json", smiles_cache)
