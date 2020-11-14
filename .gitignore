@@ -1,9 +1,16 @@
 .vscode
 .ipynb_checkpoints
 *.pyc
-*.pdf
+__pycache__
 
 # specific files
 # too big
 config.json
-elsevier_fulltexts.json
+
+brenda_data_collection/logs/
+brenda_data_collection/get_fullpapers/*
+
+# Ignore everything in data/ except Readme. This folder must be empty.
+data/*
+!data/Readme.md
+
