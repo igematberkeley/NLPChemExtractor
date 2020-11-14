@@ -339,7 +339,7 @@ try:
 		entry = iter_dict[pointer]
 		doi_pmid = entry[0]
 		text = entry[1]
-		if text:
+		if text and isinstance(text, str):
 			annotate(doi_pmid, text)
 		count += 1
 except KeyboardInterrupt:
