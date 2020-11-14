@@ -266,6 +266,10 @@ def make_you_smile(sent, c):
 			print(c)
 		except UnicodeEncodeError as e:
 			print("Unicode Encode Error: " + str(e))
+		except KeyboardInterrupt:
+			igem.save_json("smiles_cache.json", smiles_cache)
+			print("Restart from this position: " + str(pointer))
+			raise
 		except:
 			print("uh oh, some connection error :(")
 			with open("output_ner/connection_errors_{}.txt".format(out_name), "w+") as fh:
