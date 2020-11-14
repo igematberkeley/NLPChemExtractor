@@ -269,7 +269,7 @@ def make_you_smile(sent, c):
 		except:
 			print("uh oh, some connection error :(")
 			with open("output_ner/connection_errors_{}.txt".format(out_name), "w+") as fh:
-				fh.write("URLLIB CONNECTION ERROR: " + sent)
+				fh.write("URLLIB CONNECTION ERROR: " + str(sent))
 			pass
 		else:
 			if req.getcode() == 200:
