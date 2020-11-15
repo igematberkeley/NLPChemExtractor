@@ -73,7 +73,7 @@ def annotate(doi_pmid, text):
 	
 	t1 = time.time()
 	if (count % 10 == 0):
-		with open("{}.log".format(out_name), "w+") as f:
+		with open("{}.log".format(out_name), "a") as f:
 			f.write("{} out of {} completed".format(count,len(text_files.keys())))
 			f.write("elapsed time: " + str(time.time() - start))
 
@@ -275,7 +275,7 @@ def make_you_smile(sent, c):
 			raise
 		except Exception as e:
 			print("uh oh, some connection error :(")
-			with open("output_ner/connection_errors_{}.txt".format(out_name), "w+") as fh:
+			with open("output_ner/connection_errors_{}.txt".format(out_name), "a") as fh:
 				fh.write("URLLIB CONNECTION ERROR: " + str(sent))
 			pass
 		else:
@@ -349,7 +349,7 @@ try:
 		except Exception as e:
 			print()
 			print("here's a paper error!: " + doi_pmid)
-			with open("output_ner/connection_errors_{}.txt".format(out_name), "w+") as fh:
+			with open("output_ner/connection_errors_{}.txt".format(out_name), "a") as fh:
 				fh.write("General paper error: " + str(doi_pmid))
 
 			continue
