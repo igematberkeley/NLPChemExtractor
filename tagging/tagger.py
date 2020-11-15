@@ -74,8 +74,9 @@ def annotate(doi_pmid, text):
 	t1 = time.time()
 	if (count % 10 == 0):
 		with open("{}.log".format(out_name), "a") as f:
-			f.write("{} out of {} completed".format(count,len(text_files.keys())))
-			f.write("elapsed time: " + str(time.time() - start))
+			f.write("\n")
+			f.write("{} out of {} completed\n".format(count,len(text_files.keys())))
+			f.write("elapsed time: " + str(time.time() - start) + "\n")
 
 		igem.save_json(cache_name, smiles_cache)
 
@@ -161,30 +162,32 @@ def annotate(doi_pmid, text):
 			successful_spans += len(name_smiles_tuples)
 
 			for name, smiles in name_smiles_tuples:
-				span_dict = {"text": name,
-							"start": span.start,
-							"end": span.end,
-							"smiles": smiles
-				}
+				if name:
+					span_dict = {"text": name,
+								"start": span.start,
+								"end": span.end,
+								"smiles": smiles
+					}
 
-				# Indexing through pos tokens to find chemical entities
-				p = 0
-				while p < len(pos):
-					token = pos[p][0]
-					if token == span.text:
-						span_dict["pos"] = pos[p][1]
-						break
-					p += 1
-				spans_sent.append(span_dict)
-				names_sent.append(name)
-				smiles_sent.append(smiles)
-				names_smiles_sent.append((name, smiles))
+					# Indexing through pos tokens to find chemical entities
+					p = 0
+					while p < len(pos):
+						token = pos[p][0]
+						if token == span.text:
+							span_dict["pos"] = pos[p][1]
+							break
+						p += 1
+					spans_sent.append(span_dict)
+					names_sent.append(name)
+					smiles_sent.append(smiles)
+					names_smiles_sent.append((name, smiles))
 
 		# Leave for loop and add entries for each sentence in a given literature to lists
 		sentence_found.append(s.text)
 		chemicals_found.append(spans_sent)
-		names_found.append(",, ".join(names_sent)) # two commas and a space for redundancy, since IUPAC has commas
-		smiles_found.append(",, ".join(smiles_sent))
+
+		names_found.append(", ".join(names_sent)) # two commas and a space for redundancy, since IUPAC has commas
+		smiles_found.append(", ".join(smiles_sent))
 		names_and_smiles.append(names_smiles_sent)
 
 		starts.append(s.start)
@@ -202,7 +205,7 @@ def annotate(doi_pmid, text):
 	
 	# Create a dataframe with  annotations from a given literature.
 	print()
-	print("Average time per each span (one identified chemical entity): " + str(times/(span_total + 0.01)))
+	print("Average time per span (one identified chemical entity): " + str(times/(span_total + 0.01)))
 	t_an = time.time()
 	print("Time for all sentences in text: " + str(t_an - tot))
 	print("Successfully classified span percent in paper: " + str(successful_spans/(span_total + 0.01)))
@@ -276,7 +279,7 @@ def make_you_smile(sent, c):
 		except Exception as e:
 			print("uh oh, some connection error :(")
 			with open("output_ner/connection_errors_{}.txt".format(out_name), "a") as fh:
-				fh.write("URLLIB CONNECTION ERROR: " + str(sent))
+				fh.write("URLLIB CONNECTION ERROR: " + str(sent) + "\n")
 			pass
 		else:
 			if req.getcode() == 200:
@@ -314,15 +317,16 @@ def chunk_filter(substr):
 def get_smiles(sent, c):
 	data = [make_you_smile(sent, c)]
 	print(data)
-	if (data == [None]):
+	if (data == [(None, None)]):
 		data = []
 		if " " in c:
 			chem_chunk = c.split(" ")
-			print(chem_chunk)
+			print("chunks:" + str(chem_chunk))
+			print()
 			none_count = 0 
 			for ch in chem_chunk:
 				if none_count >=5:
-					data = None # abort this chunk. 
+					data = [(None, None)] # abort this chunk. 
 					break 
 				if chunk_filter(ch):
 					data.append(make_you_smile(sent, ch))
@@ -348,11 +352,14 @@ try:
 			count += 1
 		except Exception as e:
 			print()
+			print(e)
 			print("here's a paper error!: " + doi_pmid)
+			raise
 			with open("output_ner/connection_errors_{}.txt".format(out_name), "a") as fh:
-				fh.write("General paper error: " + str(doi_pmid))
+				fh.write("General paper error: " + str(doi_pmid) + "\n")
 
 			continue
+		break
 except KeyboardInterrupt:
 	igem.save_json(cache_name, smiles_cache)
 	print("Restart from this position: " + str(pointer))
