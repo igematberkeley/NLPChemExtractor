@@ -359,7 +359,6 @@ try:
 				fh.write("General paper error: " + str(doi_pmid) + "\n")
 
 			continue
-		break
 except KeyboardInterrupt:
 	igem.save_json(cache_name, smiles_cache)
 	print("Restart from this position: " + str(pointer))
