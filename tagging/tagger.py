@@ -61,7 +61,7 @@ cpt = ChemCrfPosTagger()
 # tracking counts, for monitoring runs
 count = 0 
 t0 = time.time()
-start = time.time()
+start_time = time.time()
 successful_spans = 0
 
 # annotate(doi_pmid, text) function: Appends to csv_file annotations from each sententence of a given literature text. 
@@ -76,7 +76,7 @@ def annotate(doi_pmid, text):
 		with open("{}.log".format(out_name), "a") as f:
 			f.write("\n")
 			f.write("{} out of {} completed\n".format(count,len(text_files.keys())))
-			f.write("elapsed time: " + str(time.time() - start) + "\n")
+			f.write("elapsed time: " + str(time.time() - start_time) + "\n")
 
 		igem.save_json(cache_name, smiles_cache)
 
