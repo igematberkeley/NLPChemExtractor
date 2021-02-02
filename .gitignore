@@ -18,3 +18,4 @@ data/*
 output_ner/
 tagging/*.log
 tagging/*.json
+
