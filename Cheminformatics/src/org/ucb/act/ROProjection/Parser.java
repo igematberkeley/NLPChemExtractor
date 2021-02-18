@@ -32,13 +32,13 @@ public class Parser {
       } 
       c++;
       String[] columns = sentence.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-      if (columns.length < 13)
+      if (columns.length < 12)
         continue; 
-      String id = columns[1] + "," + columns[2];
+      String id = columns[0] + "," + columns[1];
       if (columns[10].equals(""))
         continue; 
-      String[] names = columns[10].split(",,");
-      String[] smiles = columns[11].split(",,");
+      String[] names = columns[9].split(",,");
+      String[] smiles = columns[10].split(",,");
       for (int i = 0; i < names.length; i++)
         listOfChemicalsSentence.put(names[i].replaceAll("[\"]", "").replaceAll("%20", "").replaceAll(" ", "").toLowerCase(), smiles[i].replaceAll("[\"]", "").replaceAll(" ", "")); 
       listOfChemicalsSentenceID.put(id, listOfChemicalsSentence);

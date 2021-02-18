@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package src.org.ucb.act.ROProjection;
+package org.ucb.act.ROProjection;
 
 
 import java.util.HashMap;
@@ -34,7 +34,8 @@ public class ProjectionAnalysis {
           String[] namesArray = new String[1];
           smilesArray[0] = sentenceNameSmile.get(chemicalName);
           namesArray[0] = chemicalName;
-          for (Map.Entry<String, String> entry : namesROs.entrySet()) {
+       
+          for (Map.Entry<String, String> entry : namesROs.entrySet()) {     
             String ro = entry.getValue();
             try {
               pdts = rOProjecter.project(ro, smilesArray);

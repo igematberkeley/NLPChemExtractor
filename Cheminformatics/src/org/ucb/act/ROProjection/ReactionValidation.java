@@ -33,11 +33,11 @@ public class ReactionValidation {
         ChemAxonUtils.license();
         
         // HashMap for extracted chemicals per sentece. Key->doi and sentence #, Value->HashMap (key->name, value->SMILES)
-        HashMap<String,HashMap<String,String>> listOfChemicals = Parser.csvRun("/Users/jesusdelrio/Downloads/test_data3.csv");
+        HashMap<String,HashMap<String,String>> listOfChemicals = Parser.csvRun("./test_data1.csv");
         // Key->Name, Value->RO
-        HashMap<String, String> namesROs = Parser.hashMapRun("/Users/jesusdelrio/Downloads/2015_01_16-ROPruner_hchERO_list.txt");
+        HashMap<String, String> namesROs = Parser.hashMapRun("./2015_01_16-ROPruner_hchERO_list.txt");
         // Key->Inchi, Value->Name
-        HashMap<String, String> namesInchis = Parser.inchiRun("/Users/jesusdelrio/Project5/act_files/good_chems.txt");
+        HashMap<String, String> namesInchis = Parser.inchiRun("./good_chems.txt");
         
         // Initiate some Hashmaps
         HashMap<String[],HashMap<String,Set<String>>> outputSingleMolecule = new HashMap<String[],HashMap<String,Set<String>>>();
@@ -50,7 +50,9 @@ public class ReactionValidation {
         int c=0;
        
         Set<String> idSet = listOfChemicals.keySet();
+        
         for(String id:idSet){
+            
             
             c=c+1;
        
@@ -74,15 +76,17 @@ public class ReactionValidation {
                 outputWithID.put(id,outputSingleMolecule);
             }
             
-            if(c%1000==0){
+            
+            //if(c%1000==0){
                 System.out.println(c);
-            }
+                
+            //}
             
         }
         
         
          
-        File file = new File ("/Users/jesusdelrio/Downloads/outputCheminformatics_test.csv");
+        File file = new File ("./outputCheminformatics_test.csv");
         file.createNewFile();
         FileWriter writer = new FileWriter(file);
         
@@ -107,6 +111,7 @@ public class ReactionValidation {
                  while(allROs.hasNext()){
                      Map.Entry<String,Set<String>> oneRO =allROs.next();
                      String ro = oneRO.getKey();
+                     
                      
                      String products=String.join(",",oneRO.getValue());
                      writer.write(numIDindex[0]+","+numIDindex[1]+",\""+substrates+"\","+ro+",\""+products+"\"\n");

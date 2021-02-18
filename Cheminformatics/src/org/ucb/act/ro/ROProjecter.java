@@ -17,6 +17,7 @@ import org.ucb.act.utils.ChemAxonUtils;
 public class ROProjecter {
 
     public static void main(String[] args) throws Exception {
+        
         ChemAxonUtils.license();
 
         String ro = "[F,Cl,Br,I:3][C:1]=O.[H:4][O:2][#6]>>[#6][O:2][C:1]=O.[F,Cl,Br,I:3][H:4]";
