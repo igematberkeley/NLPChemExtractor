@@ -1,0 +1,459 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--PLEASE DO NOT MODIFY THIS FILE AND BE AWARE THAT THE FILE CONTAINS CONFIDENTIAL INFORMATION.-->
+<ChemAxon>
+<License>
+<Field Name="Software" Value="Marvin Applets"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFHe5OwZ2hlrKJF9UGP+7aIF2fG+iAhQC2pByPjIJZYuTjK0xvdc/Hyo9Yw=="/>
+</License>
+<License>
+<Field Name="Software" Value="Marvin Beans"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFAZKcsGLHsHhxy5T77+KJ/4Q1qn5AhQxVGLC/sdqTP4P/M5esAagVU7h9Q=="/>
+</License>
+<License>
+<Field Name="Software" Value="Instant JChem"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="B/S/P/E" Value="Standard"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFGHnf0VITZVX6lnRodCDnpu6vO3FAhQaiv6EYvhh+amByZLPI+Y/YT91pA=="/>
+</License>
+<License>
+<Field Name="Software" Value="JChem Base"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Restriction Name="Search/Min" Value="Unlimited"/>
+<Signature Value="MCwCFGEieUU7awPZyN2QxK9hhBqpqCmgAhRdPZha7Xxf16erLaQtwLDfefOzFA=="/>
+</License>
+<License>
+<Field Name="Software" Value="Standardizer"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="B/S/P/E" Value="Standard"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFGho/p8sKgijPGjgVlpxAcc3P1KuAhRB7VGCL7XkopcE5ORKo4ERTIumGw=="/>
+</License>
+<License>
+<Field Name="Software" Value="Screen"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFGzAXtMxlTU5uHQ9fWNts8XaCdqMAhQ1PoMrBPO25jnTsP8LD1+Tbpeujw=="/>
+</License>
+<License>
+<Field Name="Software" Value="Reactor"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MC0CFQCR0CEe8ReGjT5Ttmjf74KrSwb+wwIUARziA0hHnXs9xA0i23RG4F+71Fw="/>
+</License>
+<License>
+<Field Name="Software" Value="JKlustor"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="B/S/P/E" Value="Standard"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFDZZfiBfGtMXpWLbUCUpCSL8miSsAhQw1jCfwMV/3UyQxvkq6827JDAhvQ=="/>
+</License>
+<License>
+<Field Name="Software" Value="Metabolizer"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFBR5nG7cZ8YF6n2CtHTZuqLWKpn/AhRM/RQtfugJ7IwE6c4I5/wjt59k+Q=="/>
+</License>
+<License>
+<Field Name="Software" Value="Markush Search"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFAyRc3AARMDERLezG2Ftn+XxPBsxAhRET5a6HsQ4bADGNCdoDAWwQZzfng=="/>
+</License>
+<License>
+<Field Name="Software" Value="Protonation Plugin Group"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFBnazQ4/5MbPJNZb+DSelhRV/UA2AhRbAYUQwn4F1EVI/ABlY6qZ0HndWw=="/>
+</License>
+<License>
+<Field Name="Software" Value="Partitioning Plugin Group"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFDWzRNJk0lu4Wgw5+ECC9k2JffPoAhRI/swmnNlXr5OAupvdVUaI+fN1lg=="/>
+</License>
+<License>
+<Field Name="Software" Value="Isomers Plugin Group"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFCU8t/adUEwtl78Zjq9QT+Q1Pq19AhQGDu4HXnL0wUaBhrk6Iq2NR0EUxA=="/>
+</License>
+<License>
+<Field Name="Software" Value="Markush Enumeration Plugin"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFF0I9bLU22CD45TlzJ1YSJXQOcC3AhR1xZsiK9u/0iFljorBiNURAyyBEw=="/>
+</License>
+<License>
+<Field Name="Software" Value="Structure to Name Plugin"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFC6H+4ezj9Rlkr0YeJchxOQiITZyAhQuaFu140jHlepH1l7eW5MGhTxjcQ=="/>
+</License>
+<License>
+<Field Name="Software" Value="Name to Structure"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFGRgZw3o32rw+qaM1lOBZ32ize/VAhQZZQtF48UOZWjnzKhqw4X9YweLjw=="/>
+</License>
+<License>
+<Field Name="Software" Value="JChem for Excel"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MC0CFAH/Sd2Q6sf+sU5TKAjngK9Ji7H5AhUAit77/0Ph64AbqYsmRZTS8QEWCow="/>
+</License>
+<License>
+<Field Name="Software" Value="Structure Search"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFAvnuAUwMT1n+/TXmVxKH1rXCmKNAhRdrg4rc5o9/nCrDN4efQxFrm2CtA=="/>
+</License>
+<License>
+<Field Name="Software" Value="IUPAC naming plugin"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFGOmckz2shu1+ugABDwDXuvaQnQhAhQbJtf2aLRE3lJMM6Ei76kHlZOcxA=="/>
+</License>
+<License>
+<Field Name="Software" Value="Web Services Server"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFG76D2ImhoEuiYJsjts0Ow5tJlkYAhQCg6ETiVC7YCZzOR3U83YH3q3wCw=="/>
+</License>
+<License>
+<Field Name="Software" Value="Structure Checker"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFFRpx0bjwjP0z+9HHdeDZClVcy1GAhR/plhmzKaeL1vZs0V93bcY7Z6ydQ=="/>
+</License>
+<License>
+<Field Name="Software" Value="Predictor Plugin"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFFidit2EX6Xy2nNdMoR1rDY3QKExAhQ+u+JGEnzKygcw1GhQ+id2rk9rNA=="/>
+</License>
+<License>
+<Field Name="Software" Value="MCES"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFAwgp15NpxZqhT2u1/7LBDfmCRByAhRo7zgM74Y5fHIpg0jR4/gxImZhHw=="/>
+</License>
+<License>
+<Field Name="Software" Value="3D Screen"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFFO1vY7LDFXzsvBmQEjp9NZUo8maAhQU+PYZrRLPVZ9229Y3Pp7BwqmAMw=="/>
+</License>
+<License>
+<Field Name="Software" Value="Molecular Descriptors"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFCYjSbKCmzGNyXcbHI2Qksn0XC09AhRqiCAX3z5vaFkqj79sUv9D0j5joQ=="/>
+</License>
+<License>
+<Field Name="Software" Value="Instant JChem VIZ"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MC0CFQCGdX5KXNGcTyY32+KLB3YKC5tErwIUTDezd35emPaCvv5M07vcOG21uac="/>
+</License>
+<License>
+<Field Name="Software" Value="ECFP/FCFP"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFF4drfpR7ilzYKA97FKYeewn+F1AAhQliqeccPLjzQ5ZZoKq1HzQQsmlWw=="/>
+</License>
+<License>
+<Field Name="Software" Value="Document to Structure"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFGIT1KeTKBZGMOKWlI/qi3JAy04iAhQXOF4tXW+hrwcQFY2pSHTz9h2jng=="/>
+</License>
+<License>
+<Field Name="Software" Value="NMR Predictor"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFHbogYyCvfdJqiIZqnVBy9Lvt67RAhRcgcEU/i+KPbYEnA0fNLCSSCqi4A=="/>
+</License>
+<License>
+<Field Name="Software" Value="JChem for Office"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFGEgN268F4eFWHT5qH1IVqP/veX9AhQbrm4v2nGFzZOknBZsYhpKeEezpw=="/>
+</License>
+<License>
+<Field Name="Software" Value="Markush Editor"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFCozjdQtRTPqW/86zX1bbRjylx1/AhRMCet7ZBlDfZGVEd8gMWt1sNtKvQ=="/>
+</License>
+<License>
+<Field Name="Software" Value="Solubility Plugin"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFEM/d56z28gkW7L7kf5ONessh/oPAhQ/gED+9X+k7RCLa2GIfz0uzV58MQ=="/>
+</License>
+<License>
+<Field Name="Software" Value="Structural Calculations"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MC0CFAT2WGSEyfxM6dKgGhDD49rp8BMoAhUAleOGcQv+Aq/3xoll9FuU3Cl6doY="/>
+</License>
+<License>
+<Field Name="Software" Value="Charge Plugin Group"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFCmP66s026VjCc8+ZtoWkC9vfYYLAhQNg6zErs4UA3kK5u1/bgPYpuWrGg=="/>
+</License>
+<License>
+<Field Name="Software" Value="Conformation Plugin Group"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFHL9eo4VpgwcbetGfd1vQAgf5PVTAhRGi2snSN5faCkaexkij+SYU47MdQ=="/>
+</License>
+<License>
+<Field Name="Software" Value="Geometry Plugin Group"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFAGzjMSNAqydy3xTigQqk6utEIuRAhR3maeUZJuJIJT13/jQCHAib4vLow=="/>
+</License>
+<License>
+<Field Name="Software" Value="Huckel Analysis Plugin"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFFath62WTbwcyF8KWbyXYGD+fdL3AhRJqV7xHMlm6EvCEtUp8pCtziGwvg=="/>
+</License>
+<License>
+<Field Name="Software" Value="Refractivity Plugin"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MC0CFQCEyot8z5wgSPiKclQcczEXq9a6RwIUJQdMMjE/OiWXmkM5KF6JJb8QQYc="/>
+</License>
+<License>
+<Field Name="Software" Value="HBDA Plugin"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFDLlBlX9hyMAaDwEs7Z1PfAT/VC0AhQTiG78n+p//l0Y+zxN2GBSS+QR8w=="/>
+</License>
+<License>
+<Field Name="Software" Value="3D Alignment"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFD5ZD4IJXpMEmsuWmG5Zc50FzOdmAhR81ZH+rNhQUtj5HlwxJBIKlsHGlg=="/>
+</License>
+<License>
+<Field Name="Software" Value="Structural Frameworks Plugin"/>
+<Field Name="License Term" Value="Academic Teaching"/>
+<Field Name="Licensee" Value="University of California, Berkeley"/>
+<Field Name="Number of Users" Value="Unlimited"/>
+<Field Name="Expiration Date" Value="2019-02-21"/>
+<Field Name="Support Expiration Date" Value="2019-02-21"/>
+<Field Name="Comment" Value="academic teaching license"/>
+<Restriction Name="Server Use" Value="Not Allowed"/>
+<Signature Value="MCwCFBega2KwqAOVs6df6VnIypDJ1YqTAhQzU/3sGaCEEwca5xnwKnm67vvwpA=="/>
+</License>
+</ChemAxon>
