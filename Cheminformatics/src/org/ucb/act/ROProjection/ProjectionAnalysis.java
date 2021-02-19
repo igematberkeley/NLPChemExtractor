@@ -28,6 +28,7 @@ public class ProjectionAnalysis {
         HashMap<String[], HashMap<String, Set<String>>> output = (HashMap)new HashMap<>();
         ROProjecter rOProjecter = new ROProjecter();
         for (String chemicalName : names) {
+          // nad accepts one hydrogen, matches to any ROs.
           if (chemicalName.contains("nad"))
             continue; 
           String[] smilesArray = new String[1];

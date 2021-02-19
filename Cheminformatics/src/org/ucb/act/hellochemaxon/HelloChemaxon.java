@@ -5,7 +5,7 @@ import chemaxon.struc.MolAtom;
 import chemaxon.struc.MolBond;
 import chemaxon.struc.Molecule;
 import java.io.File;
-import org.ucb.act.synthesis.Synthesizer;
+//import org.ucb.act.synthesis.Synthesizer;
 import org.ucb.act.utils.ChemAxonUtils;
 import org.ucb.act.utils.FileUtils;
 

@@ -27,9 +27,6 @@ public class ReactionValidation {
         Parser Parser = new Parser();
         ProjectionAnalysis rOProjection = new ProjectionAnalysis();
         
-        
-
-        
         ChemAxonUtils.license();
         
         // HashMap for extracted chemicals per sentece. Key->doi and sentence #, Value->HashMap (key->name, value->SMILES)
@@ -44,17 +41,10 @@ public class ReactionValidation {
         HashMap<String[],HashMap<String,Set<String>>> outputTwoMolecules = new HashMap<String[],HashMap<String,Set<String>>>();
         HashMap<String,HashMap<String[],HashMap<String,Set<String>>>> outputWithID = new HashMap<String,HashMap<String[],HashMap<String,Set<String>>>>();
         ArrayList listOutputs = new ArrayList();
-       
-  
-       
-        int c=0;
-       
+
         Set<String> idSet = listOfChemicals.keySet();
         
         for(String id:idSet){
-            
-            
-            c=c+1;
        
             Map<String,String> sentence = listOfChemicals.get(id);
             
@@ -75,12 +65,6 @@ public class ReactionValidation {
                 //listOutputs.add(outputSingleMolecule);
                 outputWithID.put(id,outputSingleMolecule);
             }
-            
-            
-            //if(c%1000==0){
-                System.out.println(c);
-                
-            //}
             
         }
         
@@ -115,19 +99,10 @@ public class ReactionValidation {
                      
                      String products=String.join(",",oneRO.getValue());
                      writer.write(numIDindex[0]+","+numIDindex[1]+",\""+substrates+"\","+ro+",\""+products+"\"\n");
-                     
-                      int a=6;
                  }
              }   
          }
-         
-         
-             
-             
-             
-        
-             
-             int a=6;
+
          }
         
     }
