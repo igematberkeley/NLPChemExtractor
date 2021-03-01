@@ -26,12 +26,16 @@ public class Parser {
       if (sentence.equals(""))
         continue; 
       HashMap<String, String> listOfChemicalsSentence = new HashMap<>();
+      //Omit first row with column title
       if (c == 0) {
         c = 1;
         continue;
       } 
       c++;
+      //Omits detecting a , within "" as column separation
+      //in other words only commas outside "" are used for separating columns
       String[] columns = sentence.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+      //Rows with incomplete columns are skipped
       if (columns.length < 12)
         continue; 
       String id = columns[0] + "," + columns[1];
@@ -40,6 +44,7 @@ public class Parser {
       String[] names = columns[9].split(",,");
       String[] smiles = columns[10].split(",,");
       for (int i = 0; i < names.length; i++)
+          //clean up chemical names and putting everything in lower case
         listOfChemicalsSentence.put(names[i].replaceAll("[\"]", "").replaceAll("%20", "").replaceAll(" ", "").toLowerCase(), smiles[i].replaceAll("[\"]", "").replaceAll(" ", "")); 
       listOfChemicalsSentenceID.put(id, listOfChemicalsSentence);
     } 
@@ -54,6 +59,7 @@ public class Parser {
     int c = 0;
     String sentence;
     while ((sentence = br.readLine()) != null) {
+      //Omit first row with column title
       if (c == 0) {
         c = 1;
         continue;
@@ -74,6 +80,7 @@ public class Parser {
     int c = 0;
     String sentence;
     while ((sentence = br.readLine()) != null) {
+      //Omit first row with column title
       if (c == 0) {
         c = 1;
         continue;
@@ -82,6 +89,7 @@ public class Parser {
       String name = columns[1];
       String inchi = columns[2];
       int i = 0;
+      //clean up chemical names and putting everything in lower case
       namesInchis.put(inchi.replaceAll("\"", ""), name.replaceAll(" ", "").toLowerCase());
     } 
     return namesInchis;

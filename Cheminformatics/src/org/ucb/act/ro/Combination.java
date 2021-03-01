@@ -6,10 +6,11 @@
 package org.ucb.act.ro;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 /**
  *
- * @author jca20n
+ * @author code adapted from this website: https://www.baeldung.com/java-combinations-algorithm
  */
 public class Combination {
     
@@ -33,7 +34,9 @@ public class Combination {
   public static void main(String[] args) throws Exception {
     String[] arr = { "A", "B", "C" };
     List<String[]> combinations = generate(arr, 2);
-    int a = 0;
+    for(String[] letters:combinations){
+        System.out.println(Arrays.toString(letters));
+    }
   }
     
 }
