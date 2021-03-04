@@ -7,11 +7,8 @@ package org.ucb.act.ROProjection;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.ucb.act.utils.ChemAxonUtils;
@@ -36,7 +33,7 @@ public class ReactionValidation {
         // Key->doi and sentence #, Value->HashMap(key->name, value->SMILES)
         HashMap<String,HashMap<String,String>> listOfChemicals = Parser.csvRun("./test_data1.csv");
         // Key->Name, Value->RO
-        HashMap<String, String> namesROs = Parser.hashMapRun("./2015_01_16-ROPruner_hchERO_list.txt");
+        HashMap<String, String> namesROs = Parser.RORun("./2015_01_16-ROPruner_hchERO_list.txt");
         // Key->Inchi, Value->Name
         HashMap<String, String> namesInchis = Parser.inchiRun("./good_chems.txt");
         

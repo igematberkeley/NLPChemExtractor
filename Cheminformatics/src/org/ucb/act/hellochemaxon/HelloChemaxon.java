@@ -62,7 +62,7 @@ public class HelloChemaxon {
 
         //Test the build for the next rpoject
         try {
-            testRunSynthesizer();
+//            testRunSynthesizer();
         } catch (Exception err) {
             FileUtils.writeFile("", "aksjrk2j54kl254.txt");
             System.out.println("You need to fix your build, you are probably missing files on the path.\nExamine previous error messages to see what is missing.\nTo find your path, locate the file aksjrk2j54kl254.txt which has been generated in your filesystem.");
@@ -75,37 +75,37 @@ public class HelloChemaxon {
         System.out.println("Success!\nlook for hellochemaxon_output.txt");
     }
 
-    private static void testRunSynthesizer() throws Exception {
-        Synthesizer synth = new Synthesizer();
-
-        //Populate the chemical and reaction data
-        try {
-            synth.populateReactions("good_reactions.txt");
-        } catch (Exception err) {
-            throw new RuntimeException("The file good_reactions.txt isn't on path");
-        }
-        try {
-            synth.populateChemicals("good_chems.txt");
-        } catch (Exception err) {
-            throw new RuntimeException("The file good_chems.txt isn't on path");
-        }
-
-        //Populate the bag of chemicals to consider as shell 0 "natives"
-        try {
-            synth.populateNatives("minimal_metabolites.txt");
-        } catch (Exception err) {
-            throw new RuntimeException("The file minimal_metabolites.txt isn't on path");
-        }
-        try {
-            synth.populateNatives("universal_metabolites.txt");
-        } catch (Exception err) {
-            throw new RuntimeException("The file universal_metabolites.txt isn't on path");
-        }
-
-        //Check that the complete reachables list got copied over
-        File afile = new File("r-2015-10-06-new-metacyc-with-extra-cofactors.reachables.txt");
-        if (!afile.exists()) {
-            throw new RuntimeException("The file r-2015-10-06-new-metacyc-with-extra-cofactors.reachables.txt isn't on path");
-        }
-    }
+//    private static void testRunSynthesizer() throws Exception {
+//        Synthesizer synth = new Synthesizer();
+//
+//        //Populate the chemical and reaction data
+//        try {
+//            synth.populateReactions("good_reactions.txt");
+//        } catch (Exception err) {
+//            throw new RuntimeException("The file good_reactions.txt isn't on path");
+//        }
+//        try {
+//            synth.populateChemicals("good_chems.txt");
+//        } catch (Exception err) {
+//            throw new RuntimeException("The file good_chems.txt isn't on path");
+//        }
+//
+//        //Populate the bag of chemicals to consider as shell 0 "natives"
+//        try {
+//            synth.populateNatives("minimal_metabolites.txt");
+//        } catch (Exception err) {
+//            throw new RuntimeException("The file minimal_metabolites.txt isn't on path");
+//        }
+//        try {
+//            synth.populateNatives("universal_metabolites.txt");
+//        } catch (Exception err) {
+//            throw new RuntimeException("The file universal_metabolites.txt isn't on path");
+//        }
+//
+//        //Check that the complete reachables list got copied over
+//        File afile = new File("r-2015-10-06-new-metacyc-with-extra-cofactors.reachables.txt");
+//        if (!afile.exists()) {
+//            throw new RuntimeException("The file r-2015-10-06-new-metacyc-with-extra-cofactors.reachables.txt isn't on path");
+//        }
+//    }
 }
