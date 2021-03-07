@@ -20,8 +20,6 @@ import org.ucb.act.utils.ChemAxonUtils;
 public class ReactionValidation {
 
     public static void main(String[] args) throws Exception {
-
-        //Classes to be used:
         
         //Class with methods to parse chemical mining results csv, name-ro txt and name-inchi txt.
         Parser Parser = new Parser();

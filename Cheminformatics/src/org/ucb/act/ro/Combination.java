@@ -32,8 +32,8 @@ public class Combination {
   }
   
   public static void main(String[] args) throws Exception {
-    String[] arr = { "A", "B", "C" };
-    List<String[]> combinations = generate(arr, 2);
+    String[] arr = { "S", "R", "V", "A", "Y", "A"};
+    List<String[]> combinations = generate(arr, 5);
     for(String[] letters:combinations){
         System.out.println(Arrays.toString(letters));
     }

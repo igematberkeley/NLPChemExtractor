@@ -26,14 +26,13 @@ public class ProjectionAnalysis {
         
         //HashSet with names of chemicals from one sentence
         Set<String> names = sentenceNameSmile.keySet();
-        //HashSet to collect any possible product
         Set<String> pdts = new HashSet<>();
         //HashSet only viable products (chemicals found within the sentence)
         Set<String> productNames = new HashSet<>();
         
         //HashMaps to link substrate, RO and product(s) for output
         HashMap<String, Set<String>> roProducts = new HashMap<>();
-        HashMap<String[], HashMap<String, Set<String>>> output = (HashMap)new HashMap<>();
+        HashMap<String[], HashMap<String, Set<String>>> output = new HashMap<>();
         
         ROProjecter rOProjecter = new ROProjecter();
         
@@ -56,6 +55,7 @@ public class ProjectionAnalysis {
             //Some substrates may trhow an exception for RO projection, maybe due to their SMILES format
             //**Maybe some improvement be done to decrease exception number
             try {
+              //HashSet to collect any possible product
               pdts = rOProjecter.project(ro, smilesArray);
               //If no projection was succesfull, there is no need to continue in further analysis.
               if (pdts.isEmpty())
