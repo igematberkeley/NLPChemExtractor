@@ -20,11 +20,11 @@ public class ROProjecter {
         
         ChemAxonUtils.license();
 
-        String ro = "[F,Cl,Br,I:3][C:1]=O.[H:4][O:2][#6]>>[#6][O:2][C:1]=O.[F,Cl,Br,I:3][H:4]";
+        String ro = "[#6:2]-[#6:1]=[O:7]>>[#6:2]-[#6:1](-[#8])=[O:7]";
 
-        String[] reactants = new String[2];
-        reactants[0] = "FC(=O)C1=CC2=C(C=CC(CC(Br)=O)=C2)N(C(Cl)=O)C3=C1C=CC=C3";
-        reactants[1] = "CC(=O)OCCN1CCN(CCO)CC1";
+        String[] reactants = new String[1];
+        reactants[0] ="InChI=1S/C6H9N3O/c7-5(3-10)1-6-2-8-4-9-6/h2-5H,1,7H2,(H,8,9)/t5-/m0/s1";
+        //reactants[1] = "CC(=O)OCCN1CCN(CCO)CC1";
 
         Set<String> pdts = new ROProjecter().project(ro, reactants);
         for (String inchi : pdts) {
@@ -81,7 +81,7 @@ public class ROProjecter {
         Molecule[] result;
         while ((result = reactor.react()) != null) {
             for (Molecule product : result) {
-                String inchi = MolExporter.exportToFormat(product, "inchi:AuxNone,Woff");
+                String inchi = MolExporter.exportToFormat(product, "inchi:AuxNone,Woff,SAbs");
                 inchisOut.add(inchi);
             }
         }

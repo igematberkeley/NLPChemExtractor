@@ -24,7 +24,7 @@ public class ReactionValidation {
         //Class with methods to parse chemical mining results csv, name-ro txt and name-inchi txt.
         Parser Parser = new Parser();
         //Class to project ROs and validate a reaction. Contains 1 methods to validate 1 or 2 substrate reactions.
-        ProjectionAnalysis rOProjection = new ProjectionAnalysis();
+        ProjectionAnalysis projectionAnalysis = new ProjectionAnalysis();
         
         ChemAxonUtils.license();
         
@@ -49,22 +49,28 @@ public class ReactionValidation {
         //Iteration of senteces from all papers
         Set<String> idSet = listOfChemicals.keySet();
         for(String id:idSet){
-       
+            
             Map<String,String> sentence = listOfChemicals.get(id);
             if (sentence.containsKey("") || sentence.size()==1) continue;
+            
+            if(sentence.containsValue("InChI=1S/C6H9N3O/c7-5(3-10)1-6-2-8-4-9-6/h2-5H,1,7H2,(H,8,9)/t5-/m0/s1")){
+                int a =0;
+            }
   
             // Call RO projection method considering only ONE molecule as substrate
             // Output contains a list of possible reactions, substrates can be different for each reaction
-            outputSingleMolecule = rOProjection.oneMoleculeRun(sentence, namesROs, namesInchis);
+            outputSingleMolecule = projectionAnalysis.oneMoleculeRun(sentence, namesROs);
+            
             
             //If no reactions were extraced by considering ONE molecule, try considering a PAIR of molecules as substrates
             if (outputSingleMolecule.isEmpty()){
-                outputTwoMolecules = rOProjection.twoMoleculesRun(sentence, namesROs, namesInchis);
-                if(outputTwoMolecules.size()>0){
-                    outputWithID.put(id,outputTwoMolecules);
-                }
+                //To save some time I am skipping two substrate analysis
+                //outputTwoMolecules = projectionAnalysis.twoMoleculesRun(sentence, namesROs);
+                //if(outputTwoMolecules.size()>0)
+                    //outputWithID.put(id,outputTwoMolecules);
             }else{
-                outputWithID.put(id,outputSingleMolecule);}
+                outputWithID.put(id,outputSingleMolecule);
+            }
         }
         convertToCSV(outputWithID);  
     }
@@ -74,7 +80,7 @@ public class ReactionValidation {
   
     public static void convertToCSV(HashMap<String,HashMap<String[],HashMap<String,Set<String>>>> outputWithID) throws Exception{
         
-        File file = new File ("./outputCheminformatics_test.csv");
+        File file = new File ("./outputCheminformatics_test6.csv");
         file.createNewFile();
         FileWriter writer = new FileWriter(file);
        
@@ -107,6 +113,8 @@ public class ReactionValidation {
                 }
             }   
         }
+         
+         writer.close();
     }    
 }
         

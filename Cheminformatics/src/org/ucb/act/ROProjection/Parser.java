@@ -9,37 +9,24 @@ package org.ucb.act.ROProjection;
  *
  * @author jesusdelrio
  */
-import chemaxon.formats.MolConverter;
 import chemaxon.formats.MolExporter;
+import chemaxon.formats.MolImporter;
+import chemaxon.struc.Molecule;
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.lang;
-import static java.lang.System.out;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 public class Parser {
 
   /** Creates a hashmap with key sentence ID, value another Hashmap with key chemname, value smiles (soon changing to Inchi) */
   public HashMap<String, HashMap<String, String>> csvRun(String fileName) throws Exception {
-    //New feature: converting SMILES -> inchis
-    MolConverter.Builder converter = new MolConverter.Builder();
+    
     HashMap<String, HashMap<String, String>> listOfChemicalsSentenceID = new HashMap<>();
     BufferedReader br = new BufferedReader(new FileReader(fileName));
     br.readLine(); // read and skip the first line
     String sentence;
     String smile = null;
     String name = null;
-    Set<String> totalSmiles = new HashSet();
-    Set<String> totalInchis = new HashSet();
     while ((sentence = br.readLine()) != null) {
       if (sentence.equals(""))
         continue;
@@ -53,59 +40,35 @@ public class Parser {
       String id = columns[0] + "," + columns[1];
       String[] names = columns[9].split(",,");
       String[] smiles = columns[10].split(",,");
-      int c=0;
       int error=0;
-      for (int i = 0; i < names.length; i++)
+      //Iterate over all smiles to convert in inchis
+      for (int i = 0; i < names.length; i++){
           //clean up chemical names and putting everything in lower case
           name=names[i].replaceAll("[\"]", "").replaceAll("%20", " ").replaceAll(" ", "").toLowerCase();
-          smile= smiles[c].replaceAll("[\"]", "").replaceAll(" ", "");
-          totalSmiles.add(smile);
-          c++;
-          //Converting SMILES into inchis
-          InputStream roStream = new ByteArrayInputStream(smile.getBytes());
-          converter.addInput(roStream, "smiles");
-          ByteArrayOutputStream inchiStream = new ByteArrayOutputStream();
-          converter.setOutput(inchiStream, "InChI");
-          converter.setOutputFlags(MolExporter.TEXT );
-          try{
-          MolConverter mc = converter.build();
-          mc.convert();
-          mc.close();
-          }catch(Exception e){
-              continue;
-          }
-          String inchi = new String(inchiStream.toByteArray());
-          String[] onlyInchi=inchi.split("AuxInfo");
-          totalInchis.add(onlyInchi[0]);
-          listOfChemicalsSentence.put(name,onlyInchi[0]);
+          smile= smiles[i].replaceAll("[\"]", "").replaceAll(" ", "");
+          String onlyInchi = smileInchiConverter(smile);
+          if (onlyInchi==null) continue;
+          if (listOfChemicalsSentence.containsValue(onlyInchi)) continue;
+          listOfChemicalsSentence.put(name,onlyInchi);
       listOfChemicalsSentenceID.put(id, listOfChemicalsSentence);
     } 
-    int succesfulInchi= totalInchis.size()*100/totalSmiles.size();
-    System.out.println("Succesful SMILE->Inchi conversion: "+succesfulInchi+"%");
-    return listOfChemicalsSentenceID;
   }
+    return listOfChemicalsSentenceID;
+}
 
   /** Creates a hashmap with key RO name, value RO. */
   public HashMap<String, String> RORun(String fileName) throws Exception {
-    
-    //New feature: converting SMILES -> inchis
-    MolConverter.Builder converter = new MolConverter.Builder();
-    
+      
     HashMap<String, String> namesROs = new HashMap<>();
-    
-    
     BufferedReader br = new BufferedReader(new FileReader(fileName));
     br.readLine(); // skip the first line
     String sentence;
     while ((sentence = br.readLine()) != null) {
-                
+              
         String[] columns = sentence.split("\t");
         String name = columns[1];
         String ro = columns[2];
-        
         namesROs.put(name, ro);
-
-
     } 
     return namesROs;
   }
@@ -126,6 +89,20 @@ public class Parser {
     } 
     return namesInchis;
   }
-  
+   
+   public String smileInchiConverter(String smile) throws Exception {
+     
+    Molecule molecule = MolImporter.importMol(smile);
+    String inchi =null;
+    //Standardizer standardizer = new Standardizer("setabsolutestereo");
+    //standardizer.standardize(molecule);
+    try{
+        inchi = MolExporter.exportToFormat(molecule, "inchi:AuxNone,Woff,SAbs");
+    }catch(Exception e){
+        return null;
+    }
+     return inchi;
+ 
+    }
 }
 
