@@ -74,22 +74,6 @@ public class Parser {
   }
    
    
-   public HashMap<String, String> inchiRun(String fileName) throws Exception {
-    HashMap<String, String> namesInchis = new HashMap<>();
-    BufferedReader br = new BufferedReader(new FileReader(fileName));
-    br.readLine(); // skip the first line
-    String sentence;
-    while ((sentence = br.readLine()) != null) {
-      String[] columns = sentence.split("\t");
-      String name = columns[1];
-      String inchi = columns[2];
-      // remove apostrophe from inchi name (from goodChems)
-      // clean up chemical names and putting everything in lower case
-      namesInchis.put(inchi.replaceAll("\"", ""), name.replaceAll(" ", "").toLowerCase());
-    } 
-    return namesInchis;
-  }
-   
    public String smileInchiConverter(String smile) throws Exception {
      
     Molecule molecule = MolImporter.importMol(smile);
@@ -102,7 +86,6 @@ public class Parser {
         return null;
     }
      return inchi;
- 
     }
 }
 

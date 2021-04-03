@@ -22,18 +22,17 @@ public class ReactionValidation {
     public static void main(String[] args) throws Exception {
         
         //Class with methods to parse chemical mining results csv, name-ro txt and name-inchi txt.
-        Parser Parser = new Parser();
+        Parser parser = new Parser();
         //Class to project ROs and validate a reaction. Contains 1 methods to validate 1 or 2 substrate reactions.
         ProjectionAnalysis projectionAnalysis = new ProjectionAnalysis();
         
         ChemAxonUtils.license();
         
-        // Key->doi and sentence #, Value->HashMap(key->name, value->SMILES)
-        HashMap<String,HashMap<String,String>> listOfChemicals = Parser.csvRun("./test_data1.csv");
+        // Key->doi and sentence #, Value->HashMap(key->name, value->Inchis)
+        HashMap<String,HashMap<String,String>> listOfChemicals = parser.csvRun("./test_data1.csv");
         // Key->Name, Value->RO
-        HashMap<String, String> namesROs = Parser.RORun("./2015_01_16-ROPruner_hchERO_list.txt");
-        // Key->Inchi, Value->Name
-        HashMap<String, String> namesInchis = Parser.inchiRun("./good_chems.txt");
+        HashMap<String, String> namesROs = parser.RORun("./2015_01_16-ROPruner_hchERO_list.txt");
+       
         
         //HashMaps to record validated reactions considering 1 or 2 substrates:
         //Key->Substrate, Value->HashMap(key->RO, value->List of products)
@@ -53,14 +52,9 @@ public class ReactionValidation {
             Map<String,String> sentence = listOfChemicals.get(id);
             if (sentence.containsKey("") || sentence.size()==1) continue;
             
-            if(sentence.containsValue("InChI=1S/C6H9N3O/c7-5(3-10)1-6-2-8-4-9-6/h2-5H,1,7H2,(H,8,9)/t5-/m0/s1")){
-                int a =0;
-            }
-  
             // Call RO projection method considering only ONE molecule as substrate
             // Output contains a list of possible reactions, substrates can be different for each reaction
             outputSingleMolecule = projectionAnalysis.oneMoleculeRun(sentence, namesROs);
-            
             
             //If no reactions were extraced by considering ONE molecule, try considering a PAIR of molecules as substrates
             if (outputSingleMolecule.isEmpty()){

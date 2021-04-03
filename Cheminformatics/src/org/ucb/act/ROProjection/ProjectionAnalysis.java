@@ -26,7 +26,7 @@ public class ProjectionAnalysis {
         
         //HashSet with names of chemicals from one sentence
         Set<String> names = sentenceNameInchis.keySet();
-        Set<String> pdts = new HashSet<>();
+       
     
         Map<String, String> inchisNames = new HashMap<>();
         for(Map.Entry<String, String> entry : sentenceNameInchis.entrySet()){
@@ -46,17 +46,18 @@ public class ProjectionAnalysis {
           if (chemicalName.contains("nad"))
             continue; 
           //Since the output format is a HashMap containing an array at its value, an array for one substrate is created
-          String[] inchisArray = new String[1];
-          String[] namesArray = new String[1];
-          inchisArray[0] = sentenceNameInchis.get(chemicalName);
-          namesArray[0] = chemicalName;
+          String[] inchisArray = {sentenceNameInchis.get(chemicalName)};
+          String[] namesArray = {chemicalName};
+          //inchisArray[0] = sentenceNameInchis.get(chemicalName);
+          //namesArray[0] = chemicalName;
           
           //Project all ROs found in the database
-          for (Map.Entry<String, String> entry : namesROs.entrySet()) {     
+          for (Map.Entry<String, String> entry : namesROs.entrySet()) {    
+            Set<String> pdts = new HashSet<>();
             String ro = entry.getValue();
             
             //Some substrates may throw an exception for RO projection, maybe due to their SMILES format
-            //**Maybe some improvement be done to decrease exception number
+            //**Maybe some improvement can be done to decrease exception number
             try {
               //HashSet to collect any possible product
               pdts = rOProjecter.project(ro, inchisArray);
@@ -65,14 +66,16 @@ public class ProjectionAnalysis {
             } catch (Exception e) {
               continue;
             } 
-            Set<String> listProducts = new HashSet<>();
+            Set<String> listProductsNames = new HashSet<>();
+            Set<String> listProductsInchis = new HashSet<>();
             //This loop checks if the obtained products are chemicals within the sentence, validating a reaction in that sentence
             for (String product : pdts) {
                 if (sentenceNameInchis.containsValue(product) && !product.equals(inchisArray[0])){
-                    listProducts.add(inchisNames.get(product)); 
+                    listProductsNames.add(inchisNames.get(product));
+                    listProductsInchis.add(product);
                 } 
             }
-            if (listProducts.size() > 0) roProducts.put(ro, listProducts); 
+            if (listProductsNames.size() > 0 && listProductsInchis.containsAll(pdts)) roProducts.put(ro, listProductsNames);
           }
           if (roProducts.size() > 0) output.put(namesArray, roProducts);
         }
@@ -83,8 +86,7 @@ public class ProjectionAnalysis {
         
         //HashSet with names of chemicals from one sentence
         Set<String> names = sentenceNameInchis.keySet();
-        //HashSet to collect any possible product
-        Set<String> pdts = new HashSet<>();
+       
         
         Map<String, String> inchisNames = new HashMap<>();
         for(Map.Entry<String, String> entry : sentenceNameInchis.entrySet()){
@@ -103,17 +105,15 @@ public class ProjectionAnalysis {
         
         for (String[] chemicalNames : combinations) {
           //Make the array for the names and SMILEs of the pair of substrates 
-          String[] inchisArray = new String[2];
-          String[] namesArray = new String[2];
-          inchisArray[0] = sentenceNameInchis.get(chemicalNames[0]);
-          inchisArray[1] = sentenceNameInchis.get(chemicalNames[1]);
-          namesArray[0] = sentenceNameInchis.get(chemicalNames[0]);
-          namesArray[1] = sentenceNameInchis.get(chemicalNames[1]);
+          String[] inchisArray = {sentenceNameInchis.get(chemicalNames[0]),sentenceNameInchis.get(chemicalNames[1])};
+          String[] namesArray = {chemicalNames[0],chemicalNames[1]};
           
           HashMap<String, Set<String>> roProducts = new HashMap<>();
           
           //Project all ROs found in the database
           for (Map.Entry<String, String> entry : namesROs.entrySet()) {
+            //HashSet to collect any possible product
+            Set<String> pdts = new HashSet<>();
             String ro = entry.getValue();
             //Some substrates may trhow an exception for RO projection, maybe due to their SMILES format
             //**Maybe some improvement be done to decrease exception number
@@ -123,15 +123,17 @@ public class ProjectionAnalysis {
             } catch (Exception e) {
               continue;
             } 
-            Set<String> listProducts = new HashSet<>();
+            Set<String> listProductsNames = new HashSet<>();
+             Set<String> listProductsInchis = new HashSet<>();
             //This loop checks if the obtained products are chemicals within the sentence, validating a reaction in that sentence
             for (String product : pdts) {
               if (sentenceNameInchis.containsValue(product) && !product.equals(inchisArray[0]) && !product.equals(inchisArray[1]))
-                listProducts.add(inchisNames.get(product));
+                listProductsNames.add(inchisNames.get(product));
+                listProductsInchis.add(product);
             } 
-            if (listProducts.size() > 0) roProducts.put(ro, listProducts);  
+            if (listProductsNames.size() > 0 && listProductsInchis.containsAll(pdts)) roProducts.put(ro, listProductsNames);  
           }
-          if(roProducts.size()>0) output.put(inchisArray, roProducts);
+          if(roProducts.size()>0) output.put(namesArray, roProducts);
         } 
         return output;
     }

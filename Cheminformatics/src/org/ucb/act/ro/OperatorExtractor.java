@@ -27,9 +27,9 @@ public class OperatorExtractor {
 //        String reaction = "CCCc1ccccc1C(=O)N>>CCCc1ccccc1C(=O)O"; //amide to acid
 
         //acrylate + coenzyme A + H+ → acryloyl-CoA + H2O
-        String reaction = "CCCC=CC(=O)O";
+        String reaction = "C(C(C(C(C(COP(=O)(O)O)O)O)O)O)O";
         reaction += ">>";
-        reaction += "CC(C)(COP(=O)(O)OP(=O)(O)OC[C@@H]1[C@H]([C@H]([C@@H](O1)N2C=NC3=C(N=CN=C32)N)O)OP(=O)(O)O)[C@H](C(=O)NCCC(=O)NCCSC(=O)C=CCCC)O";
+        reaction += "C(C(C(C(C(CO)O)O)O)O)O";
 
 
         RxnMolecule rxn = RxnMolecule.getReaction(MolImporter.importMol(reaction));
@@ -56,7 +56,7 @@ public class OperatorExtractor {
 
         RxnMolecule hchERO = new OperatorExtractor().calc_hchERO(mapped);
         ChemAxonUtils.savePNGImage(hchERO, "output/images/erocalc_hchERO.png");
-        System.out.println(ChemAxonUtils.toSMARTS(hchERO));
+        System.out.println(ChemAxonUtils.toSMARTS(hchERO)+"+");
     }
 
     public RxnMolecule calc_hcCRO(RxnMolecule mappedRxn) {
