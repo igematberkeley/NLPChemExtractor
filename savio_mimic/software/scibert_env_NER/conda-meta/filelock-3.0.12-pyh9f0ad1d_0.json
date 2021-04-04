@@ -1,0 +1,106 @@
+{
+  "build": "pyh9f0ad1d_0",
+  "build_number": 0,
+  "channel": "https://conda.anaconda.org/conda-forge/noarch",
+  "constrains": [],
+  "depends": [
+    "python"
+  ],
+  "extracted_package_dir": "/Users/mrunali/opt/anaconda3/pkgs/filelock-3.0.12-pyh9f0ad1d_0",
+  "features": "",
+  "files": [
+    "lib/python3.6/site-packages/filelock-3.0.12.dist-info/INSTALLER",
+    "lib/python3.6/site-packages/filelock-3.0.12.dist-info/LICENSE",
+    "lib/python3.6/site-packages/filelock-3.0.12.dist-info/METADATA",
+    "lib/python3.6/site-packages/filelock-3.0.12.dist-info/RECORD",
+    "lib/python3.6/site-packages/filelock-3.0.12.dist-info/WHEEL",
+    "lib/python3.6/site-packages/filelock-3.0.12.dist-info/direct_url.json",
+    "lib/python3.6/site-packages/filelock-3.0.12.dist-info/top_level.txt",
+    "lib/python3.6/site-packages/filelock.py",
+    "lib/python3.6/site-packages/__pycache__/filelock.cpython-36.pyc"
+  ],
+  "fn": "filelock-3.0.12-pyh9f0ad1d_0.tar.bz2",
+  "license": "Unlicense",
+  "link": {
+    "source": "/Users/mrunali/opt/anaconda3/pkgs/filelock-3.0.12-pyh9f0ad1d_0",
+    "type": 1
+  },
+  "md5": "7544ed05bbbe9bb687bc9bcbe4d6cb46",
+  "name": "filelock",
+  "noarch": "python",
+  "package_tarball_full_path": "/Users/mrunali/opt/anaconda3/pkgs/filelock-3.0.12-pyh9f0ad1d_0.tar.bz2",
+  "package_type": "noarch_python",
+  "paths_data": {
+    "paths": [
+      {
+        "_path": "site-packages/filelock-3.0.12.dist-info/INSTALLER",
+        "path_type": "hardlink",
+        "sha256": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "sha256_in_prefix": "d0edee15f91b406f3f99726e44eb990be6e34fd0345b52b910c568e0eef6a2a8",
+        "size_in_bytes": 5
+      },
+      {
+        "_path": "site-packages/filelock-3.0.12.dist-info/LICENSE",
+        "path_type": "hardlink",
+        "sha256": "88d9b4eb60579c191ec391ca04c16130572d7eedc4a86daa58bf28c6e14c9bcd",
+        "sha256_in_prefix": "88d9b4eb60579c191ec391ca04c16130572d7eedc4a86daa58bf28c6e14c9bcd",
+        "size_in_bytes": 1210
+      },
+      {
+        "_path": "site-packages/filelock-3.0.12.dist-info/METADATA",
+        "path_type": "hardlink",
+        "sha256": "823cdbbfd9f1b43f918f6cac8d4b86ed22d908751097984ccbaf098a3f2ca0fc",
+        "sha256_in_prefix": "823cdbbfd9f1b43f918f6cac8d4b86ed22d908751097984ccbaf098a3f2ca0fc",
+        "size_in_bytes": 4343
+      },
+      {
+        "_path": "site-packages/filelock-3.0.12.dist-info/RECORD",
+        "path_type": "hardlink",
+        "sha256": "6f77c80c5427274854fb7f13f64f78791e9f9cef17f69a74d9ea99d1c26c12d7",
+        "sha256_in_prefix": "6f77c80c5427274854fb7f13f64f78791e9f9cef17f69a74d9ea99d1c26c12d7",
+        "size_in_bytes": 697
+      },
+      {
+        "_path": "site-packages/filelock-3.0.12.dist-info/WHEEL",
+        "path_type": "hardlink",
+        "sha256": "8389ccb3b77e5e5f7ec42f57a2f52bb031c65edf854f4135ed8aa8f760c47ef6",
+        "sha256_in_prefix": "8389ccb3b77e5e5f7ec42f57a2f52bb031c65edf854f4135ed8aa8f760c47ef6",
+        "size_in_bytes": 92
+      },
+      {
+        "_path": "site-packages/filelock-3.0.12.dist-info/direct_url.json",
+        "path_type": "hardlink",
+        "sha256": "8058cd74c99487a3f14b85d4e7717bd4977c96d85024346cdd5cc2cc2fd5d520",
+        "sha256_in_prefix": "8058cd74c99487a3f14b85d4e7717bd4977c96d85024346cdd5cc2cc2fd5d520",
+        "size_in_bytes": 104
+      },
+      {
+        "_path": "site-packages/filelock-3.0.12.dist-info/top_level.txt",
+        "path_type": "hardlink",
+        "sha256": "343adff62e41368833e2111db2be878bb5acdd395248a63843663dffe8b61b05",
+        "sha256_in_prefix": "343adff62e41368833e2111db2be878bb5acdd395248a63843663dffe8b61b05",
+        "size_in_bytes": 9
+      },
+      {
+        "_path": "site-packages/filelock.py",
+        "path_type": "hardlink",
+        "sha256": "e43413b4e690abbfaf80b919cef3a1aa154c87fba67f275681203c56ece67fc3",
+        "sha256_in_prefix": "e43413b4e690abbfaf80b919cef3a1aa154c87fba67f275681203c56ece67fc3",
+        "size_in_bytes": 13229
+      },
+      {
+        "_path": "lib/python3.6/site-packages/__pycache__/filelock.cpython-36.pyc",
+        "path_type": "pyc_file"
+      }
+    ],
+    "paths_version": 1
+  },
+  "requested_spec": "None",
+  "sha256": "aa2c2af62d2a5e5fbf502265e8c65b7d6e5d3847f0e7c692c8bb6f42734441fc",
+  "size": 9949,
+  "subdir": "noarch",
+  "timestamp": 1589994687873,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/conda-forge/noarch/filelock-3.0.12-pyh9f0ad1d_0.tar.bz2",
+  "version": "3.0.12"
+}

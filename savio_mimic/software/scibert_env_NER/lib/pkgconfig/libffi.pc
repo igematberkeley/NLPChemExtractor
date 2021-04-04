@@ -1,0 +1,11 @@
+prefix=/Users/mrunali/igem_nlp_2020/scibert_branch_work/NLPChemExtractor/savio_mimic/software/scibert_env_NER
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+toolexeclibdir=${libdir}
+includedir=/Users/mrunali/igem_nlp_2020/scibert_branch_work/NLPChemExtractor/savio_mimic/software/scibert_env_NER/include
+
+Name: libffi
+Description: Library supporting Foreign Function Interfaces
+Version: 3.3
+Libs: -L${toolexeclibdir} -lffi
+Cflags: -I${includedir}

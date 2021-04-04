@@ -1,0 +1,12 @@
+prefix=/Users/mrunali/igem_nlp_2020/scibert_branch_work/NLPChemExtractor/savio_mimic/software/scibert_env_NER
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+enginesdir=${libdir}/engines-1.1
+
+Name: OpenSSL-libcrypto
+Description: OpenSSL cryptography library
+Version: 1.1.1k
+Libs: -L${libdir} -lcrypto
+Libs.private:  
+Cflags: -I${includedir}

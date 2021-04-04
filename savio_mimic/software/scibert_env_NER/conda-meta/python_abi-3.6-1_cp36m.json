@@ -1,0 +1,37 @@
+{
+  "build": "1_cp36m",
+  "build_number": 1,
+  "channel": "https://conda.anaconda.org/conda-forge/osx-64",
+  "constrains": [
+    "pypy <0a0",
+    "python_abi * *_cp36m"
+  ],
+  "depends": [
+    "python 3.6.*"
+  ],
+  "extracted_package_dir": "/Users/mrunali/opt/anaconda3/pkgs/python_abi-3.6-1_cp36m",
+  "features": "",
+  "files": [],
+  "fn": "python_abi-3.6-1_cp36m.tar.bz2",
+  "license": "BSD-3-Clause",
+  "license_family": "BSD",
+  "link": {
+    "source": "/Users/mrunali/opt/anaconda3/pkgs/python_abi-3.6-1_cp36m",
+    "type": 1
+  },
+  "md5": "b5288c464326cc7a5827251344e5098f",
+  "name": "python_abi",
+  "package_tarball_full_path": "/Users/mrunali/opt/anaconda3/pkgs/python_abi-3.6-1_cp36m.tar.bz2",
+  "paths_data": {
+    "paths": [],
+    "paths_version": 1
+  },
+  "requested_spec": "None",
+  "sha256": "e870d65218a56b00123e6dddc524890f01fd21c988be603d2cedb130a5dd77e3",
+  "size": 3680,
+  "subdir": "osx-64",
+  "timestamp": 1583344782831,
+  "track_features": "",
+  "url": "https://conda.anaconda.org/conda-forge/osx-64/python_abi-3.6-1_cp36m.tar.bz2",
+  "version": "3.6"
+}
