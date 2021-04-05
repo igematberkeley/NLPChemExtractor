@@ -20,12 +20,13 @@ public class ROProjecter {
         
         ChemAxonUtils.license();
 
-        String ro = "[#6:2]-[#6:1]=[O:7]>>[#6:2]-[#6:1](-[#8])=[O:7]";
+        
+        String ro = "[H][#8:9]-[c:8]1[c:10][c:3][c:4][c:5][c:6]1>>[H]C([H])([H])[#8:9]-[c:8]1[c:10][c:3][c:4][c:5][c:6]1";
 
         String[] reactants = new String[1];
-        reactants[0] ="InChI=1S/C6H9N3O/c7-5(3-10)1-6-2-8-4-9-6/h2-5H,1,7H2,(H,8,9)/t5-/m0/s1";
-        //reactants[1] = "CC(=O)OCCN1CCN(CCO)CC1";
-
+        //reactants[0] ="InChI=1S/C15H22N6O5S/c1-27(3-2-7(16)15(24)25)4-8-10(22)11(23)14(26-8)21-6-20-9-12(17)18-5-19-13(9)21/h5-8,10-11,14,22-23H,2-4,16H2,1H3,(H2-,17,18,19,24,25)/p+1/t7-,8+,10+,11+,14+,27?/m0/s1";
+        reactants[0] = "InChI=1S/C6H6O/c7-6-4-2-1-3-5-6/h1-5,7H";
+        
         Set<String> pdts = new ROProjecter().project(ro, reactants);
         for (String inchi : pdts) {
             System.out.println("\t" + inchi);

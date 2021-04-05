@@ -36,13 +36,13 @@ public class ReactionValidation {
         
         //HashMaps to record validated reactions considering 1 or 2 substrates:
         //Key->Substrate, Value->HashMap(key->RO, value->List of products)
-        HashMap<String[],HashMap<String,Set<String>>> outputSingleMolecule = new HashMap<String[],HashMap<String,Set<String>>>();
+        HashMap<Set<String>,HashMap<String,Set<String>>> outputSingleMolecule = new HashMap<Set<String>,HashMap<String,Set<String>>>();
         //Key->List of substrates, Value->HashMap(key->RO, value->list of products)
-        HashMap<String[],HashMap<String,Set<String>>> outputTwoMolecules = new HashMap<String[],HashMap<String,Set<String>>>();
+        HashMap<Set<String>,HashMap<String,Set<String>>> outputTwoMolecules = new HashMap<Set<String>,HashMap<String,Set<String>>>();
         
         //Output HashMap:
         //Key->doi,sentence#, Value->HashMap(Key->List of substrates, Value->HashMap(key->RO, value->list of products))
-        HashMap<String,HashMap<String[],HashMap<String,Set<String>>>> outputWithID = new HashMap<String,HashMap<String[],HashMap<String,Set<String>>>>();
+        HashMap<String,HashMap<Set<String>,HashMap<String,Set<String>>>> outputWithID = new HashMap<String,HashMap<Set<String>,HashMap<String,Set<String>>>>();
         
 
         //Iteration of senteces from all papers
@@ -72,26 +72,26 @@ public class ReactionValidation {
     
     
   
-    public static void convertToCSV(HashMap<String,HashMap<String[],HashMap<String,Set<String>>>> outputWithID) throws Exception{
+    public static void convertToCSV(HashMap<String,HashMap<Set<String>,HashMap<String,Set<String>>>> outputWithID) throws Exception{
         
         File file = new File ("./outputCheminformatics_test6.csv");
         file.createNewFile();
         FileWriter writer = new FileWriter(file);
        
         writer.write("lit_id, index, Reactant(s),RO, Product(s) \n");
-        Iterator<Map.Entry<String,HashMap<String[],HashMap<String,Set<String>>>>> sentences = outputWithID.entrySet().iterator();
+        Iterator<Map.Entry<String,HashMap<Set<String>,HashMap<String,Set<String>>>>> sentences = outputWithID.entrySet().iterator();
          
         //Iterate for all validated sentences
          while(sentences.hasNext()){
-             Map.Entry<String,HashMap<String[],HashMap<String,Set<String>>>> sentence = sentences.next();
+             Map.Entry<String,HashMap<Set<String>,HashMap<String,Set<String>>>> sentence = sentences.next();
              String id = sentence.getKey();
              String[] numIDindex =id.split(",");
              
-             Iterator<Map.Entry<String[],HashMap<String,Set<String>>>> allSubstratesFromSentence = sentence.getValue().entrySet().iterator();
+             Iterator<Map.Entry<Set<String>,HashMap<String,Set<String>>>> allSubstratesFromSentence = sentence.getValue().entrySet().iterator();
              
              //Iterate all single or pair of substrates per sentence
              while(allSubstratesFromSentence.hasNext()){
-                 Map.Entry<String[],HashMap<String,Set<String>>> substratesOneReaction = allSubstratesFromSentence.next();
+                 Map.Entry<Set<String>,HashMap<String,Set<String>>> substratesOneReaction = allSubstratesFromSentence.next();
                  String substrates = String.join(",",substratesOneReaction.getKey());
                  
                  Iterator<Map.Entry<String,Set<String>>> allROs = substratesOneReaction.getValue().entrySet().iterator();

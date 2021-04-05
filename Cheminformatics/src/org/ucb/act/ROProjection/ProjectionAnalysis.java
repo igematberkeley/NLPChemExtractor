@@ -6,6 +6,7 @@
 package org.ucb.act.ROProjection;
 
 
+import java.util.Arrays;
 import org.ucb.act.ro.Combination;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -22,7 +23,7 @@ public class ProjectionAnalysis {
     
     //Method for considering a chemical reaction with only one substrate
     //RO projection in one chemical
-    public HashMap<String[], HashMap<String, Set<String>>> oneMoleculeRun(Map<String, String> sentenceNameInchis, HashMap<String, String> namesROs) {
+    public HashMap<Set<String>, HashMap<String, Set<String>>> oneMoleculeRun(Map<String, String> sentenceNameInchis, HashMap<String, String> namesROs) {
         
         //HashSet with names of chemicals from one sentence
         Set<String> names = sentenceNameInchis.keySet();
@@ -34,7 +35,7 @@ public class ProjectionAnalysis {
         }
         
         //HashMaps to link substrate, RO and product(s) for output
-        HashMap<String[], HashMap<String, Set<String>>> output = new HashMap<>();
+        HashMap<Set<String>, HashMap<String, Set<String>>> output = new HashMap<>();
         ROProjecter rOProjecter = new ROProjecter();
         
         //Iterate over all chemicals within one sentence
@@ -66,23 +67,30 @@ public class ProjectionAnalysis {
             } catch (Exception e) {
               continue;
             } 
+            
+            
             Set<String> listProductsNames = new HashSet<>();
-            Set<String> listProductsInchis = new HashSet<>();
-            //This loop checks if the obtained products are chemicals within the sentence, validating a reaction in that sentence
+            
+            //Checks if the obtained products are chemicals within the sentence
+            if(!sentenceNameInchis.values().containsAll(pdts)) continue;
+            //Checking substrate != product
             for (String product : pdts) {
-                if (sentenceNameInchis.containsValue(product) && !product.equals(inchisArray[0])){
+                if (!product.equals(inchisArray[0])){
                     listProductsNames.add(inchisNames.get(product));
-                    listProductsInchis.add(product);
                 } 
             }
-            if (listProductsNames.size() > 0 && listProductsInchis.containsAll(pdts)) roProducts.put(ro, listProductsNames);
+            if (listProductsNames.size() > 0) roProducts.put(ro, listProductsNames);
           }
-          if (roProducts.size() > 0) output.put(namesArray, roProducts);
+          
+          if (roProducts.size() > 0){
+              Set<String> namesSet = new HashSet<String>(Arrays.asList(namesArray));
+              output.put(namesSet, roProducts);
+          }
         }
         return output;
   }
     
-     public HashMap<String[], HashMap<String, Set<String>>> twoMoleculesRun(Map<String, String> sentenceNameInchis, HashMap<String, String> namesROs) {
+     public HashMap<Set<String>, HashMap<String, Set<String>>> twoMoleculesRun(Map<String, String> sentenceNameInchis, HashMap<String, String> namesROs) {
         
         //HashSet with names of chemicals from one sentence
         Set<String> names = sentenceNameInchis.keySet();
@@ -94,7 +102,7 @@ public class ProjectionAnalysis {
         }
         
         
-        HashMap<String[], HashMap<String, Set<String>>> output = (HashMap)new HashMap<>();
+        HashMap<Set<String>, HashMap<String, Set<String>>> output = (HashMap)new HashMap<>();
         
         ROProjecter rOProjecter = new ROProjecter();
         
@@ -107,6 +115,7 @@ public class ProjectionAnalysis {
           //Make the array for the names and SMILEs of the pair of substrates 
           String[] inchisArray = {sentenceNameInchis.get(chemicalNames[0]),sentenceNameInchis.get(chemicalNames[1])};
           String[] namesArray = {chemicalNames[0],chemicalNames[1]};
+
           
           HashMap<String, Set<String>> roProducts = new HashMap<>();
           
@@ -114,26 +123,36 @@ public class ProjectionAnalysis {
           for (Map.Entry<String, String> entry : namesROs.entrySet()) {
             //HashSet to collect any possible product
             Set<String> pdts = new HashSet<>();
+            //There are ROs that cant be projected in 2 substrates!!!!!!!!
             String ro = entry.getValue();
             //Some substrates may trhow an exception for RO projection, maybe due to their SMILES format
             //**Maybe some improvement be done to decrease exception number
             try {
               pdts = rOProjecter.project(ro, inchisArray);
+              System.out.println(entry.getKey());
               if (pdts.isEmpty()) continue; 
             } catch (Exception e) {
               continue;
             } 
+            
+            
             Set<String> listProductsNames = new HashSet<>();
-             Set<String> listProductsInchis = new HashSet<>();
-            //This loop checks if the obtained products are chemicals within the sentence, validating a reaction in that sentence
+            
+            //Checks if the obtained products are chemicals within the sentence
+            if(!sentenceNameInchis.values().containsAll(pdts)) continue;
+            //Checking substrate != product
             for (String product : pdts) {
               if (sentenceNameInchis.containsValue(product) && !product.equals(inchisArray[0]) && !product.equals(inchisArray[1]))
                 listProductsNames.add(inchisNames.get(product));
-                listProductsInchis.add(product);
+                
             } 
-            if (listProductsNames.size() > 0 && listProductsInchis.containsAll(pdts)) roProducts.put(ro, listProductsNames);  
+            if (listProductsNames.size() > 0) roProducts.put(ro, listProductsNames);  
           }
-          if(roProducts.size()>0) output.put(namesArray, roProducts);
+          
+          if(roProducts.size()>0){
+              Set<String> namesSet = new HashSet<String>(Arrays.asList(namesArray));
+              output.put(namesSet, roProducts);
+          }
         } 
         return output;
     }

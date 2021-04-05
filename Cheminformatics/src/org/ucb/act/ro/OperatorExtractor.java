@@ -27,9 +27,9 @@ public class OperatorExtractor {
 //        String reaction = "CCCc1ccccc1C(=O)N>>CCCc1ccccc1C(=O)O"; //amide to acid
 
         //acrylate + coenzyme A + H+ → acryloyl-CoA + H2O
-        String reaction = "C(C(C(C(C(COP(=O)(O)O)O)O)O)O)O";
+        String reaction = "CN(C)CC(=O)O";
         reaction += ">>";
-        reaction += "C(C(C(C(C(CO)O)O)O)O)O";
+        reaction += "C[N+](C)(C)CC(=O)[O-]";
 
 
         RxnMolecule rxn = RxnMolecule.getReaction(MolImporter.importMol(reaction));
