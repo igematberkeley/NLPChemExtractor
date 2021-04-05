@@ -15,6 +15,8 @@ import chemaxon.struc.Molecule;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Parser {
 
@@ -57,20 +59,19 @@ public class Parser {
 }
 
   /** Creates a hashmap with key RO name, value RO. */
-  public HashMap<String, String> RORun(String fileName) throws Exception {
+  public Set<String> RORun(String fileName) throws Exception {
       
-    HashMap<String, String> namesROs = new HashMap<>();
+    Set<String> ros = new HashSet<>();
     BufferedReader br = new BufferedReader(new FileReader(fileName));
     br.readLine(); // skip the first line
     String sentence;
     while ((sentence = br.readLine()) != null) {
               
         String[] columns = sentence.split("\t");
-        String name = columns[1];
         String ro = columns[2];
-        namesROs.put(name, ro);
+        ros.add(ro);
     } 
-    return namesROs;
+    return ros;
   }
    
    

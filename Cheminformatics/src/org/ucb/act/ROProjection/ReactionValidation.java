@@ -31,7 +31,7 @@ public class ReactionValidation {
         // Key->doi and sentence #, Value->HashMap(key->name, value->Inchis)
         HashMap<String,HashMap<String,String>> listOfChemicals = parser.csvRun("./test_data1.csv");
         // Key->Name, Value->RO
-        HashMap<String, String> namesROs = parser.RORun("./2015_01_16-ROPruner_hchERO_list.txt");
+        Set<String> namesROs = parser.RORun("./2015_01_16-ROPruner_hchERO_list.txt");
        
         
         //HashMaps to record validated reactions considering 1 or 2 substrates:

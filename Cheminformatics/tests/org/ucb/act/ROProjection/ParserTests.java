@@ -100,39 +100,4 @@ public class ParserTests {
         assertTrue(revisedListOfChemicals.equals(listOfChemicals));
         
     }
-    
-    
-    
-    
-    /*
-    @Test
-    public void ProjectionAnalysisTest() throws Exception {
-        
-        ChemAxonUtils.license();
-        ProjectionAnalysis projectionAnalysis = new ProjectionAnalysis();
-      
-        
-        HashMap<String,String> roHashMap= new HashMap();
-
-        roHashMap.put("A","[H][C:2]([H])([#6:1])[#8:3]>>[#6:1]-[#6:2](-[#8:3])=O");
-        roHashMap.put("B","[H][#8:4]-[#6:3]([H])-[#6:2]>>[#6:2]-[#6:3]=[O:4]");
-        roHashMap.put("C","[#6:2]-[#6:1]=[O:7]>>[#6:2]-[#6:1](-[#8])=[O:7]");
-        //roHashMap.put("D","[#6:21]-[#6:23]-[#6:24]>>[#6:21]-[#6:23](-[#6:24])-[#8]");
-        //roHashMap.put("E","[H][#7:12]([H])-[#6:1]>>[H][#8]-[#6](=O)C([H])([#7]([H])[H])C([H])([H])C([H])([H])[#6](-[#8][H])=[#7:12]-[#6:1]");
-        //roHashMap.put("F","[H][C:17]([H])([H])[#6:16]>>[H][#8]-[#6:17](-[#6:16])=O");
-        //roHashMap.put("G","[H][#8:10]-[#6:9]>>[H][#8]-c1nc(=[#7][H])c([H])c([H])n1C1([H])[#8]C([H])(C([H])([H])[#8]P(=O)([#8][H])[#8:10]-[#6:9])C([H])([#8][H])C1([H])[#8][H]");
-        //roHashMap.put("H","[H][#8:10]-[#6:1]>>[H]C([H])([H])[#6](=O)-[#8:10]-[#6:1]");
-        
-        Map<String,String> sentence = new HashMap();
-        
-        sentence.put("A","InChI=1S/C6H11N3O/c7-5(3-10)1-6-2-8-4-9-6/h2,4-5,10H,1,3,7H2,(H,8,9)/t5-/m0/s1");
-
-        sentence.put("B","InChI=1S/C6H9N3O/c7-5(3-10)1-6-2-8-4-9-6/h2-5H,1,7H2,(H,8,9)/t5-/m0/s1");
-        
-        sentence.put("C","InChI=1S/C6H9N3O2/c7-5(6(10)11)1-4-2-8-3-9-4/h2-3,5H,1,7H2,(H,8,9)(H,10,11)/t5-/m0/s1");
-        
-        HashMap<String[],HashMap<String,Set<String>>> outputSingleMolecule = projectionAnalysis.oneMoleculeRun(sentence, roHashMap);
-        
-     }
-*/
 }
