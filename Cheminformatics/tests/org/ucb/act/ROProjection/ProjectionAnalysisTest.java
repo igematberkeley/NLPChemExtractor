@@ -148,9 +148,7 @@ public class ProjectionAnalysisTest {
          * Methanethiol + S-adenosyl-L-methionine -> H+ + dimethyl sulfide + S-adenosyl-L-homocysteine
          * 
          * RO for reaction is [H][#16:3]-[#6:2].[#6:5][S+:6]([#6:7])[#6:14]>>[#6:5]-[#16:3]-[#6:2].[#6:7]-[#16:6]-[#6:14] (thiol_and_sulfonium_transmethylation) check:https://www.rhea-db.org/rhea/50428 
-         */
-        
-        //Tricky, it is detecting methylation by both, like a reversible reaction, is that possible? again, no secondary molecule to validate the obtention of a methyl group
+         */        
         sentence.put("Methanethiol","InChI=1S/CH4S/c1-2/h2H,1H3");
         sentence.put("S-adenosyl-L-methionine","InChI=1S/C15H22N6O5S/c1-27(3-2-7(16)15(24)25)4-8-10(22)11(23)14(26-8)21-6-20-9-12(17)18-5-19-13(9)21/h5-8,10-11,14,22-23H,2-4,16H2,1H3,(H2-,17,18,19,24,25)/p+1/t7-,8+,10+,11+,14+,27?/m0/s1");
         sentence.put("dimethyl sulfide","InChI=1S/C2H6S/c1-3-2/h1-2H3");
