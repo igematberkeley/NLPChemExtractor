@@ -56,7 +56,7 @@ public class ProjectionAnalysis {
           for (Map.Entry<String, String> entry : namesROs.entrySet()) {    
             Set<String> pdts = new HashSet<>();
             String ro = entry.getValue();
-            
+
             //Some substrates may throw an exception for RO projection, maybe due to their SMILES format
             //**Maybe some improvement can be done to decrease exception number
             try {
@@ -65,6 +65,7 @@ public class ProjectionAnalysis {
               //If no projection was succesfull, there is no need to continue in further analysis.
               if (pdts.isEmpty())continue;  
             } catch (Exception e) {
+              System.out.print("Projection did not work " + ro);
               continue;
             } 
             

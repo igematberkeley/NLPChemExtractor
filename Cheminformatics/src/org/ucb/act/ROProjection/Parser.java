@@ -51,6 +51,7 @@ public class Parser {
           if (listOfChemicalsSentence.containsValue(onlyInchi)) continue;
           listOfChemicalsSentence.put(name,onlyInchi);
       listOfChemicalsSentenceID.put(id, listOfChemicalsSentence);
+
     } 
   }
     return listOfChemicalsSentenceID;
