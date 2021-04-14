@@ -29,9 +29,9 @@ public class ReactionValidation {
         ChemAxonUtils.license();
         
         // Key->doi and sentence #, Value->HashMap(key->name, value->Inchis)
-        HashMap<String,HashMap<String,String>> listOfChemicals = parser.csvRun("./test_data1.csv");
+        HashMap<String,HashMap<String,String>> listOfChemicals = parser.csvRun("./benchmark_700_reactions_by_EC.csv");
         // Key->Name, Value->RO
-        HashMap<String, String> namesROs = parser.RORun("./2015_01_16-ROPruner_hchERO_list.txt");
+        Set<String> namesROs = parser.RORun("./2015_01_16-ROPruner_hchERO_list.txt");
        
         
         //HashMaps to record validated reactions considering 1 or 2 substrates:
@@ -58,23 +58,23 @@ public class ReactionValidation {
             
             //If no reactions were extraced by considering ONE molecule, try considering a PAIR of molecules as substrates
             if (outputSingleMolecule.isEmpty()){
-                //To save some time I am skipping two substrate analysis
-                //outputTwoMolecules = projectionAnalysis.twoMoleculesRun(sentence, namesROs);
-                //if(outputTwoMolecules.size()>0)
-                    //outputWithID.put(id,outputTwoMolecules);
+                //To save some time I am skipping two substrate analysis -> ignore
+                outputTwoMolecules = projectionAnalysis.twoMoleculesRun(sentence, namesROs);
+                if(outputTwoMolecules.size()>0)
+                    outputWithID.put(id,outputTwoMolecules);
             }else{
                 outputWithID.put(id,outputSingleMolecule);
             }
         }
-        convertToCSV(outputWithID);  
+        convertToCSV(outputWithID,"./outputCheminformatics_test6.csv");  
     }
     
     
     
   
-    public static void convertToCSV(HashMap<String,HashMap<Set<String>,HashMap<String,Set<String>>>> outputWithID) throws Exception{
+    public static void convertToCSV(HashMap<String,HashMap<Set<String>,HashMap<String,Set<String>>>> outputWithID, String nameFile) throws Exception{
         
-        File file = new File ("./outputCheminformatics_test6.csv");
+        File file = new File (nameFile);
         file.createNewFile();
         FileWriter writer = new FileWriter(file);
        

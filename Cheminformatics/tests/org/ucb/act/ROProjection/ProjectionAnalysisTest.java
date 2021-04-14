@@ -37,7 +37,7 @@ public class ProjectionAnalysisTest {
         ChemAxonUtils.license();
         ProjectionAnalysis projectionAnalysis = new ProjectionAnalysis();
 
-        HashMap<String, String> namesROs = parser.RORun("./2015_01_16-ROPruner_hchERO_list.txt");
+        Set<String> namesROs = parser.RORun("./2015_01_16-ROPruner_hchERO_list.txt");
         Map<String,String> sentence = new HashMap();
         
         /**
@@ -46,7 +46,8 @@ public class ProjectionAnalysisTest {
         * 2) 1-butanol + NAD+ -> butanal + H+ + NADH
         * 
         * RO used for reaction 1) is [#6:2]-[#6:1]=[O:12]>>[H][#8:12]-[#6:1]([H])-[#6:2] (aldehyde reduction to primary alcohol)
-        * RO used for reaction 2) is [H][#8:4]-[#6:3]([H])-[#6:2]>>[#6:2]-[#6:3]=[O:4] (primary alcohol to aldehyde) check: https://www.rhea-db.org/rhea/33199
+        * ROs used for reaction 2) are [H][#8:4]-[#6:3]([H])-[#6:2]>>[#6:2]-[#6:3]=[O:4] (primary alcohol to aldehyde) 
+        * and [H][#6:2]-[#8:1][H]>>[#6:2]=[O:1] (alcohol oxidation to aldehyde) check: https://www.rhea-db.org/rhea/33199
         */
         sentence.put("butanal","InChI=1S/C4H8O/c1-2-3-4-5/h4H,2-3H2,1H3");
         sentence.put("NAD+","InChI=1S/C21H27N7O14P2/c22-17-12-19(25-7-24-17)28(8-26-12)21-16(32)14(30)11(41-21)6-39-44(36,37)42-43(34,35)38-5-10-13(29)15(31)20(40-10)27-3-1-2-9(4-27)18(23)33/h1-4,7-8,10-11,13-16,20-21,29-32H,5-6H2,(H5-,22,23,24,25,33,34,35,36,37)/t10-,11-,13-,14-,15-,16-,20-,21-/m1/s1");
@@ -67,7 +68,8 @@ public class ProjectionAnalysisTest {
         /**Chemicals for the last reaction:
          * 4) phenol + S-adenosyl-L-methionine = anisole + H+ + S-adenosyl-L-homocysteine
          * 
-         * RO used for reaction 4) is [H][#8:9]-[c:8]1[c:10][c:3][c:4][c:5][c:6]1>>[H]C([H])([H])[#8:9]-[c:8]1[c:10][c:3][c:4][c:5][c:6]1 (phenol_methylation_to_ether) check: https://www.rhea-db.org/rhea/14809
+         * 2 RO can be projected for reaction 4) [H][#8:12]-[#6:1]>>[H]C([H])([H])[#8:12]-[#6:1] (alcohol_methylation_to_ether) 
+         * and [H][#8:9]-[c:8]1[c:10][c:3][c:4][c:5][c:6]1>>[H]C([H])([H])[#8:9]-[c:8]1[c:10][c:3][c:4][c:5][c:6]1 (phenol_methylation_to_ether) check: https://www.rhea-db.org/rhea/14809
          *Important note!!! RO projection does not care about S-adenosyl-L-methionine being present, maybe we could focus more on 1 subtrate porjection as it could validate 
          * 2 substrate reactions?
          */ 
@@ -97,6 +99,7 @@ public class ProjectionAnalysisTest {
         substrates1.add("1-butanol");
         products1.add("butanal");
         roProducts1.put("[H][#8:4]-[#6:3]([H])-[#6:2]>>[#6:2]-[#6:3]=[O:4]",products1);
+        roProducts1.put("[H][#6:2]-[#8:1][H]>>[#6:2]=[O:1]",products1);
         revisedOutput.put(substrates1,roProducts1);
         
         //Reaction 3
@@ -114,12 +117,12 @@ public class ProjectionAnalysisTest {
         Set<String> products3 = new HashSet<>();
         substrates3.add("phenol");
         products3.add("anisole");
+        roProducts3.put("[H][#8:12]-[#6:1]>>[H]C([H])([H])[#8:12]-[#6:1]",products3);
         roProducts3.put("[H][#8:9]-[c:8]1[c:10][c:3][c:4][c:5][c:6]1>>[H]C([H])([H])[#8:9]-[c:8]1[c:10][c:3][c:4][c:5][c:6]1",products3);
         revisedOutput.put(substrates3,roProducts3);
         
         
         HashMap<Set<String>,HashMap<String,Set<String>>> outputSingleMolecule = projectionAnalysis.oneMoleculeRun(sentence,namesROs);
-        int a=6;
         assertTrue(revisedOutput.equals(outputSingleMolecule));
         
         
@@ -137,40 +140,43 @@ public class ProjectionAnalysisTest {
         ChemAxonUtils.license();
         ProjectionAnalysis projectionAnalysis = new ProjectionAnalysis();
 
-        HashMap<String, String> namesROs = parser.RORun("./2015_01_16-ROPruner_hchERO_list.txt");
+        Set<String> namesROs = parser.RORun("./2015_01_16-ROPruner_hchERO_list.txt");
         Map<String,String> sentence = new HashMap();
         
         /**
-         Importance of coupling with mass balance:
-        * 1) S-adenosyl-L-homocysteine -> S-adenosyl-L-methionine 
-        * 
-        * Intended reaction for 1) was https://www.rhea-db.org/rhea/10072
-        * The RO detected [#6:2]-[#16:3]-[#6:4]>>[H]C([H])([H])[S+:3]([#6:2])[#6:4] (thioether methylation to sulfonium) thus:
-        * S-adenosyl-L-homocysteine + glycine betaine -> S-adenosyl-L-methionine + N,N-Dimethylglycine
-        * assuming that glycine betaine donates is methyl group (not reported in litrature)
-       
-        sentence.put("N,N-Dimethylglycine","InChI=1S/C4H9NO2/c1-5(2)3-4(6)7/h3H2,1-2H3,(H,6,7)");
-        sentence.put("S-adenosyl-L-methionine ","InChI=1S/C15H22N6O5S/c1-27(3-2-7(16)15(24)25)4-8-10(22)11(23)14(26-8)21-6-20-9-12(17)18-5-19-13(9)21/h5-8,10-11,14,22-23H,2-4,16H2,1H3,(H2-,17,18,19,24,25)/p+1/t7-,8+,10+,11+,14+,27?/m0/s1");
-        sentence.put("glycine betaine","InChI=1S/C5H11NO2/c1-6(2,3)4-5(7)8/h4H2,1-3H3");
-        sentence.put("S-adenosyl-L-homocysteine","InChI=1S/C14H20N6O5S/c15-6(14(23)24)1-2-26-3-7-9(21)10(22)13(25-7)20-5-19-8-11(16)17-4-18-12(8)20/h4-7,9-10,13,21-22H,1-3,15H2,(H,23,24)(H2,16,17,18)/t6-,7+,9+,10+,13+/m0/s1");
-        //sentence.put("H+","InChI=1S/p+1"); involved in a lot of reactions
-        */
-        
-        //Trcky, it is detecting methilation by both, like a reversible reaction, is that possible? again, no secondary molecule to validate the obtention of a methyl group
-        sentence.put("Metanoetiol","InChI=1S/CH4S/c1-2/h2H,1H3");
-        sentence.put("S-adenosyl-L-methionine ","InChI=1S/C15H22N6O5S/c1-27(3-2-7(16)15(24)25)4-8-10(22)11(23)14(26-8)21-6-20-9-12(17)18-5-19-13(9)21/h5-8,10-11,14,22-23H,2-4,16H2,1H3,(H2-,17,18,19,24,25)/p+1/t7-,8+,10+,11+,14+,27?/m0/s1");
+         * Chemicals for reaction:
+         * Methanethiol + S-adenosyl-L-methionine -> H+ + dimethyl sulfide + S-adenosyl-L-homocysteine
+         * 
+         * RO for reaction is [H][#16:3]-[#6:2].[#6:5][S+:6]([#6:7])[#6:14]>>[#6:5]-[#16:3]-[#6:2].[#6:7]-[#16:6]-[#6:14] (thiol_and_sulfonium_transmethylation) check:https://www.rhea-db.org/rhea/50428 
+         */        
+        sentence.put("Methanethiol","InChI=1S/CH4S/c1-2/h2H,1H3");
+        sentence.put("S-adenosyl-L-methionine","InChI=1S/C15H22N6O5S/c1-27(3-2-7(16)15(24)25)4-8-10(22)11(23)14(26-8)21-6-20-9-12(17)18-5-19-13(9)21/h5-8,10-11,14,22-23H,2-4,16H2,1H3,(H2-,17,18,19,24,25)/p+1/t7-,8+,10+,11+,14+,27?/m0/s1");
         sentence.put("dimethyl sulfide","InChI=1S/C2H6S/c1-3-2/h1-2H3");
         sentence.put("S-adenosyl-L-homocysteine","InChI=1S/C14H20N6O5S/c15-6(14(23)24)1-2-26-3-7-9(21)10(22)13(25-7)20-5-19-8-11(16)17-4-18-12(8)20/h4-7,9-10,13,21-22H,1-3,15H2,(H,23,24)(H2,16,17,18)/t6-,7+,9+,10+,13+/m0/s1");
+        //This last two products are inexplicably part of the RO projection
         sentence.put("5'-Deoxy-5'-methylthioadenosine","InChI=1S/C11H15N5O3S/c1-20-2-5-7(17)8(18)11(19-5)16-4-15-6-9(12)13-3-14-10(6)16/h3-5,7-8,11,17-18H,2H2,1H3,(H2,12,13,14)/t5-,7-,8-,11-/m1/s1");
         sentence.put("Methionine","InChI=1S/C5H11NO2S/c1-9-3-2-4(6)5(7)8/h4H,2-3,6H2,1H3,(H,7,8)/t4-/m0/s1");
+        
+        HashMap<Set<String>,HashMap<String,Set<String>>> revisedOutput = new HashMap<>();
+        //Revised output creation
+        HashMap<String,Set<String>> roProducts = new HashMap<>();
+        Set<String> substrates = new HashSet<>();
+        Set<String> products = new HashSet<>();
+        substrates.add("Methanethiol");
+        substrates.add("S-adenosyl-L-methionine");
+        products.add("dimethyl sulfide");
+        products.add("S-adenosyl-L-homocysteine");
+        products.add("5'-Deoxy-5'-methylthioadenosine");
+        products.add("Methionine");
+        roProducts.put("[H][#16:3]-[#6:2].[#6:5][S+:6]([#6:7])[#6:14]>>[#6:5]-[#16:3]-[#6:2].[#6:7]-[#16:6]-[#6:14]",products);
+        revisedOutput.put(substrates,roProducts);
+        
         
         //Only when S-adenosyl-L-homocysteine alone is projected works, wihtout considering how the methyl group was added to the mixture (in this case from glycine betaine
         //HashMap<Set<String>,HashMap<String,Set<String>>> outputOneMolecule = projectionAnalysis.oneMoleculeRun(sentence,namesROs);
         HashMap<Set<String>,HashMap<String,Set<String>>> outputTwoMolecule = projectionAnalysis.twoMoleculesRun(sentence,namesROs);
+         assertTrue(revisedOutput.equals(outputTwoMolecule));
         
-        
-        
-        int a=6;
     }
     
 }
