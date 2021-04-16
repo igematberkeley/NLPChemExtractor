@@ -17,7 +17,7 @@ import org.ucb.act.ro.ROProjecter;
 
 /**
  *
- * @author jesusdelrio
+ * @author jesusdelrio and ArjunChandran
  */
 public class ProjectionAnalysis {
     
@@ -53,9 +53,8 @@ public class ProjectionAnalysis {
           //namesArray[0] = chemicalName;
 
           //Project all ROs found in the database
-          for (Map.Entry<String, String> entry : namesROs.entrySet()) {
+          for (String ro : namesROs) {
             Set<String> pdts = new HashSet<>();
-            String ro = entry.getValue();
 
             //Some substrates may throw an exception for RO projection, maybe due to their SMILES format
             //**Maybe some improvement can be done to decrease exception number
