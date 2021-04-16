@@ -89,7 +89,7 @@ public class ProjectionAnalysis {
         return output;
   }
 
-     public HashMap<Set<String>, HashMap<String, Set<String>>> twoMoleculesRun(Map<String, String> sentenceNameInchis, HashMap<String, String> namesROs) {
+     public HashMap<Set<String>, HashMap<String, Set<String>>> twoMoleculesRun(Map<String, String> sentenceNameInchis, Set<String> namesROs) {
 
         //HashSet with names of chemicals from one sentence
         Set<String> names = sentenceNameInchis.keySet();
@@ -119,16 +119,15 @@ public class ProjectionAnalysis {
           HashMap<String, Set<String>> roProducts = new HashMap<>();
 
           //Project all ROs found in the database
-          for (Map.Entry<String, String> entry : namesROs.entrySet()) {
+          for (String ro : namesROs) {
             //HashSet to collect any possible product
             Set<String> pdts = new HashSet<>();
             //There are ROs that cant be projected in 2 substrates!!!!!!!!
-            String ro = entry.getValue();
             //Some substrates may trhow an exception for RO projection, maybe due to their SMILES format
             //**Maybe some improvement be done to decrease exception number
             try {
               pdts = rOProjecter.project(ro, inchisArray);
-              System.out.println(entry.getKey());
+              System.out.println(ro);
               if (pdts.isEmpty()) continue;
             } catch (Exception e) {
               continue;
