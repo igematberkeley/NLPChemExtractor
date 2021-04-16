@@ -5,6 +5,7 @@ import org.ucb.act.ro.ROUtils;
 import org.apache.spark.sql.Dataset;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 /** @author ArjunChandran **/
 public class ChemoInformaticsPipeline {
@@ -24,7 +25,7 @@ public class ChemoInformaticsPipeline {
         Parser parser = new Parser();
 
         HashMap<ArrayList, HashMap<ArrayList, Double>> data_reactions = reac_gen.main(filepath_data);
-        HashMap<String, String> ROs = parser.RORun("./2015_01_16-ROPruner_hchERO_list.txt");
+        Set ROs = parser.RORun("./2015_01_16-ROPruner_hchERO_list.txt");
         HashMap<Double , ArrayList> RO_Mass_match = new HashMap<>();
         for(String name: ROs.keySet()){
             String RO = ROs.get(name);

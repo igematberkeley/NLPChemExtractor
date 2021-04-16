@@ -23,7 +23,7 @@ public class ProjectionAnalysis {
     
     //Method for considering a chemical reaction with only one substrate
     //RO projection in one chemical
-    public HashMap<Set<String>, HashMap<String, Set<String>>> oneMoleculeRun(Map<String, String> sentenceNameInchis, HashMap<String, String> namesROs) {
+    public HashMap<Set<String>, HashMap<String, Set<String>>> oneMoleculeRun(Map<String, String> sentenceNameInchis, Set<String> namesROs) {
 
         //HashSet with names of chemicals from one sentence
         Set<String> names = sentenceNameInchis.keySet();
