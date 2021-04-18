@@ -15,8 +15,8 @@ import java.util.List;
 
 public class Reaction_Generator{
     ///Returns Hashmap with two arrays with the key array containing sentence index start and end vals and the second array containing reaction combos
-    private HashMap<ArrayList, ArrayList> naive_generate(String filepath, int window_size) throws Exception {
-            HashMap<ArrayList, ArrayList> output = new HashMap();
+    private HashMap<ArrayList, ArrayList<String[]>> naive_generate(String filepath, int window_size) throws Exception {
+            HashMap<ArrayList, ArrayList<String[]>> output = new HashMap();
             Parser parser = new Parser();
             HashMap<String, HashMap<String, String>> data = parser.csvRun(filepath);
             ///This and below can hopefully be replaced with the sliding window function for computational efficency
@@ -44,7 +44,7 @@ public class Reaction_Generator{
                 ///Here we can consider expanding the length of chemical reactions if needed.
                 List<String[]> reactions1 = combiner.generate(bag_of_chemicals, 2);
                 List<String[]> reactions2 = combiner.generate(bag_of_chemicals, 3);
-                ArrayList reactions = new ArrayList();
+                ArrayList<String[]> reactions = new ArrayList();
                 for(String[] reaction: reactions1){
                     reactions.add(reaction);
                 }
@@ -64,7 +64,7 @@ public class Reaction_Generator{
             return output;
     }
 
-    private HashMap<ArrayList, Double> generate_mass_diff(ArrayList<String> reaction_combos) throws MolFormatException {
+    private HashMap<ArrayList, Double> generate_mass_diff(String[] reaction_combos) throws MolFormatException {
         ArrayList<Molecule> rxnmolecules = new ArrayList<>();
         HashMap<ArrayList, Double> outputs = new HashMap<>();
 
@@ -79,7 +79,7 @@ public class Reaction_Generator{
         //Here we calculate the mass_diff for each combination
         int i = 0;
 
-        while (i < reaction_combos.size() - 1) {
+        while (i < reaction_combos.length - 1) {
             int counter = i;
             boolean prod = false;
 
@@ -131,11 +131,13 @@ public class Reaction_Generator{
     public HashMap<ArrayList, HashMap<ArrayList, Double>> main(String filepath) throws Exception{
         int window_size = 4;
         HashMap<ArrayList, HashMap<ArrayList, Double>> output = new HashMap<>();
-        HashMap<ArrayList, ArrayList> location_reaction_combos = naive_generate(filepath, window_size);
+        HashMap<ArrayList, ArrayList<String[]>> location_reaction_combos = naive_generate(filepath, window_size);
         ArrayList<ArrayList> keys = new ArrayList(location_reaction_combos.keySet());
         for (ArrayList key: keys){
-            HashMap<ArrayList, Double> data = generate_mass_diff(location_reaction_combos.get(key));
-            output.put(key, data);
+            for(String[] reaction: location_reaction_combos.get(key)) {
+                HashMap<ArrayList, Double> data = generate_mass_diff(reaction);
+                output.put(key, data);
+            }
         }
         return output;
     }

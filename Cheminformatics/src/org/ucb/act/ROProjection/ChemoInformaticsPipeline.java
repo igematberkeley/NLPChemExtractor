@@ -2,7 +2,6 @@ package org.ucb.act.ROProjection;
 
 import org.ucb.act.ROProjection.Reaction_Generator;
 import org.ucb.act.ro.ROUtils;
-import org.apache.spark.sql.Dataset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -25,10 +24,9 @@ public class ChemoInformaticsPipeline {
         Parser parser = new Parser();
 
         HashMap<ArrayList, HashMap<ArrayList, Double>> data_reactions = reac_gen.main(filepath_data);
-        Set ROs = parser.RORun("./2015_01_16-ROPruner_hchERO_list.txt");
+        Set<String> ROs = parser.RORun("./2015_01_16-ROPruner_hchERO_list.txt");
         HashMap<Double , ArrayList> RO_Mass_match = new HashMap<>();
-        for(String name: ROs.keySet()){
-            String RO = ROs.get(name);
+        for(String RO: ROs){
             Double mass_diff = utils.get_mass_difference(RO);
             if (RO_Mass_match.keySet().contains(mass_diff)){
                 ArrayList smirks = RO_Mass_match.get(mass_diff);
@@ -44,6 +42,19 @@ public class ChemoInformaticsPipeline {
 
         for(ArrayList location: data_reactions.keySet()){
             HashMap <ArrayList, Double> possible_reaction_data = data_reactions.get(location);
+            for(ArrayList<ArrayList> reaction: possible_reaction_data.keySet()){
+                Double mass_diff = possible_reaction_data.get(reaction);
+                ArrayList<String> rxn_ROs = RO_Mass_match.get(mass_diff);
+                for (String RO: rxn_ROs){
+                    ArrayList products = reaction.get(0);
+                    ArrayList reactents= reaction.get(1);
+                    if (reactents.size() == 1){
+
+                    } else if (reactents.size() == 2){
+
+                    }
+                }
+            }
         }
 
 

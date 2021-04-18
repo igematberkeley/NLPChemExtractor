@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+
+import chemaxon.struc.Molecule;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -25,27 +27,28 @@ public class ROUtilsTests{
         Parser parser = new Parser();
         ROUtils utils = new ROUtils();
         Set<String> namesROs = parser.RORun("./2015_01_16-ROPruner_hchERO_list.txt");
-        HashMap<String, HashMap> explodedROs = new HashMap<>();
+        HashMap<String, HashMap<String, Molecule[]>> explodedROs = new HashMap<>();
         for(String ro: namesROs){
-            print(ro);
+            System.out.print(ro);
             HashMap<String, Molecule[]> rxn = utils.explode(ro);
-            explodedROs.add(ro, rxn);
+            explodedROs.put(ro, rxn);
 
         }
-        print(explodedROs);
+        System.out.print(explodedROs);
     }
 
     @Test
     public void get_mass_difference_test() throws Exception{
         ROUtils utils = new ROUtils();
-        Parser parser = new Parser()
+        Parser parser = new Parser();
         Set<String> namesROs = parser.RORun("./2015_01_16-ROPruner_hchERO_list.txt");
+        HashMap<String,  Double> RO_Mass_Diff = new HashMap<>();
         for(String ro: namesROs){
-            print(ro);
-            double mass_diff = utils.get_mass_difference(ro)
-            explodedROs.add(ro, mass_diff);
+            System.out.print(ro);
+            double mass_diff = utils.get_mass_difference(ro);
+            RO_Mass_Diff.put(ro, mass_diff);
 
         }
-        print(explodedROs);
+        System.out.print(RO_Mass_Diff);
     }
 }
