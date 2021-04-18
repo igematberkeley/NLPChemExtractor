@@ -61,9 +61,9 @@ public class ReactionValidation {
                 //To save some time I am skipping two substrate analysis -> ignore
                 outputTwoMolecules = projectionAnalysis.twoMoleculesRun(sentence, namesROs);
                 if(outputTwoMolecules.size()>0)
-                    outputWithID.put(id,outputTwoMolecules);
+                    outputWithID.put(id, outputTwoMolecules);
             }else{
-                outputWithID.put(id,outputSingleMolecule);
+                outputWithID.put(id, outputSingleMolecule);
             }
         }
         convertToCSV(outputWithID,"./outputCheminformatics_test6.csv");  

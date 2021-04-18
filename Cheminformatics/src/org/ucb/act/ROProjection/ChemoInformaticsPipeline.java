@@ -19,7 +19,6 @@ public class ChemoInformaticsPipeline {
         HashMap<ArrayList, ArrayList<HashMap<ArrayList, String>>> output = new HashMap<>();
         Reaction_Generator reac_gen = new Reaction_Generator();
         ROUtils utils = new ROUtils();
-        ReactionValidation reac_val = new ReactionValidation();
         ProjectionAnalysis proj_anl = new ProjectionAnalysis();
         Parser parser = new Parser();
 
@@ -49,6 +48,7 @@ public class ChemoInformaticsPipeline {
                     ArrayList products = reaction.get(0);
                     ArrayList reactents= reaction.get(1);
                     if (reactents.size() == 1){
+                        HashMap<Set<String>, HashMap<String, Set<String>>> stuff = proj_anl.oneMoleculeRun(RO, reactents);
 
                     } else if (reactents.size() == 2){
 
