@@ -19,3 +19,5 @@ output_ner/
 tagging/*.log
 tagging/*.json
 
+# huggingface checkpoints
+huggingface/test-ner/
