@@ -181,35 +181,54 @@ def compute_metrics(p) -> dict:
     
 # Model_init for hyperparameter search 
 # ref: https://huggingface.co/blog/ray-tune
-def model_init():
-    return transformers.AutoModelForTokenClassification.from_pretrained('allenai/scibert_scivocab_uncased', 
-                                                                        num_labels=len(label_list))
-                                                                       
-for learning_rate in [1e-7, 1e-2]
-        
-training_args = transformers.TrainingArguments(
-    f"test-ner",
-    evaluation_strategy = "epoch",
-    # learning_rate=2e-5,
-    #per_device_train_batch_size=1,
-    per_device_eval_batch_size=1,
-    num_train_epochs=5,
-    #weight_decay=0.01,
-    load_best_model_at_end=True,
-)
+                                                                      
+for learning_rate in [1e-7, 1e-6, 1e-5, 1e-4, 1e-3, 1e-2]:
+    for per_device_train_batch_size in [1, 4, 8, 16, 32, 64]:
+        for hidden_dropout_prob in [0.05, 0.11, 0.17, 0.23, 0.30]:
+            for weight_decay in [0.01, 0.04, 0.07, 0.10]:
 
-trainer = transformers.Trainer(
-    args=training_args,                  # training arguments, defined above
-    train_dataset=train_data,         # training dataset
-    tokenizer=tokenizer,
-    data_collator=transformers.DataCollatorForTokenClassification(tokenizer),
-    eval_dataset=val_data,             # evaluation dataset
-    compute_metrics=compute_metrics,
-    model_init=model_init,
-    callbacks = [EarlyStoppingCallback(early_stopping_patience = 2)]
-)
+                def model_init():
+                    return transformers.AutoModelForTokenClassification.from_pretrained('allenai/scibert_scivocab_uncased', 
+                                                                        num_labels=len(label_list),
+                                                                        hidden_dropout_prob = hidden_dropout_prob)
 
-trainer.train()cd c
+
+                training_args = transformers.TrainingArguments(
+                    f"test-ner",
+                    evaluation_strategy = "epoch",
+                    learning_rate=learning_rate,
+                    per_device_train_batch_size= per_device_train_batch_size, 
+                    per_device_eval_batch_size=1,
+                    num_train_epochs=5,
+                    weight_decay= weight_decay,
+                    load_best_model_at_end=True,
+                )
+
+                trainer = transformers.Trainer(
+                    args=training_args,                  # training arguments, defined above
+                    train_dataset=train_data,         # training dataset
+                    tokenizer=tokenizer,
+                    data_collator=transformers.DataCollatorForTokenClassification(tokenizer),
+                    eval_dataset=val_data,             # evaluation dataset
+                    compute_metrics=compute_metrics,
+                    model_init=model_init,
+                    callbacks = [EarlyStoppingCallback(early_stopping_patience = 2),
+                                transformers.ProgressCallback]
+                )
+
+                print(f"""Trying: learning_rate = {learning_rate},
+                    \n\t per_device_train_batch_size = {per_device_train_batch_size},
+                    \n\t hidden_dropout_prob = {hidden_dropout_prob},
+                    \n\t weight_decay = {weight_decay}""", flush=True)
+
+                trainer.train()
+
+                predictions = trainer.predict(test_data)
+                print(compute_metrics(predictions[0:2]), flush=True)
+
+
+
+
 
 """fudge this
 
