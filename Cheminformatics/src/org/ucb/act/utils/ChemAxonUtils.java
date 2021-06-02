@@ -120,7 +120,7 @@ public class ChemAxonUtils {
     }
 
     public static void license() throws Exception {
-        String licensepath = "./chemaxon_license/license_chemaxon.cxl";
+        String licensepath = "C:/Users/Arjun Chandran/Documents/NLPchem/NLPChemExtractor/chemaxon_license/license_chemaxon.cxl";
 
         File afile = new File(licensepath);
         if (!afile.exists()) {

@@ -18,3 +18,10 @@ import org.ucb.act.utils.ChemAxonUtils;
  * @author Arjun Chandran
  */
 
+public class ChemoInformaticsPipelineTests {
+    @Test
+    public void test1(){
+        //Write this later when pieces have been tested
+        return;
+    }
+}

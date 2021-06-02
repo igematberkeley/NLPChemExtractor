@@ -79,7 +79,7 @@ public class ReactionValidationTest {
         roProducts4.put("[H][#16:3]-[#6:2].[#6:5][S+:6]([#6:7])[#6:14]>>[#6:5]-[#16:3]-[#6:2].[#6:7]-[#16:6]-[#6:14]",products4);
         revisedOutput.put(substrates,roProducts);
         
-        ReactionValidation.convertToCSV(outputWithID);
+        //ReactionValidation.convertToCSV(outputWithID);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

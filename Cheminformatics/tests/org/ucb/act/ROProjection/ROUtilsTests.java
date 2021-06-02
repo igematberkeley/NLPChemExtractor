@@ -26,7 +26,7 @@ public class ROUtilsTests{
     public void explode_test() throws Exception{
         Parser parser = new Parser();
         ROUtils utils = new ROUtils();
-        Set<String> namesROs = parser.RORun("./2015_01_16-ROPruner_hchERO_list.txt");
+        Set<String> namesROs = parser.RORun("C:/Users/Arjun Chandran/Documents/NLPchem/NLPChemExtractor/Cheminformatics/src/2015_01_16-ROPruner_hchERO_list.txt");
         HashMap<String, HashMap<String, Molecule[]>> explodedROs = new HashMap<>();
         for(String ro: namesROs){
             System.out.print(ro);
@@ -41,14 +41,12 @@ public class ROUtilsTests{
     public void get_mass_difference_test() throws Exception{
         ROUtils utils = new ROUtils();
         Parser parser = new Parser();
-        Set<String> namesROs = parser.RORun("./2015_01_16-ROPruner_hchERO_list.txt");
-        HashMap<String,  Double> RO_Mass_Diff = new HashMap<>();
+        Set<String> namesROs = parser.RORun("C:/Users/Arjun Chandran/Documents/NLPchem/NLPChemExtractor/Cheminformatics/src/2015_01_16-ROPruner_hchERO_list.txt");
         for(String ro: namesROs){
-            System.out.print(ro);
+            System.out.println(ro);
             double mass_diff = utils.get_mass_difference(ro);
-            RO_Mass_Diff.put(ro, mass_diff);
+            System.out.println(mass_diff);
 
         }
-        System.out.print(RO_Mass_Diff);
     }
 }

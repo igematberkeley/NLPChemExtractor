@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Reaction_Generator{
     ///Returns Hashmap with two arrays with the key array containing sentence index start and end vals and the second array containing reaction combos
-    private HashMap<ArrayList, ArrayList<String[]>> naive_generate(String filepath, int window_size) throws Exception {
+    public HashMap<ArrayList, ArrayList<String[]>> naive_generate(String filepath, int window_size) throws Exception {
             HashMap<ArrayList, ArrayList<String[]>> output = new HashMap();
             Parser parser = new Parser();
             HashMap<String, HashMap<String, String>> data = parser.csvRun(filepath);
@@ -64,7 +64,7 @@ public class Reaction_Generator{
             return output;
     }
 
-    private HashMap<ArrayList, Double> generate_mass_diff(String[] reaction_combos) throws MolFormatException {
+    public HashMap<ArrayList, Double> generate_mass_diff(String[] reaction_combos) throws MolFormatException {
         ArrayList<Molecule> rxnmolecules = new ArrayList<>();
         HashMap<ArrayList, Double> outputs = new HashMap<>();
 
