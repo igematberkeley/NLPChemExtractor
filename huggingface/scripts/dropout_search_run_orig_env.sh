@@ -22,3 +22,4 @@
 ## Command(s) to run:
 source activate /global/home/groups/fc_igemcomp/software/scibert_env_NER
 python dropout_hyp_search.py
+
