@@ -21,7 +21,6 @@ from collections import OrderedDict
 
 
 tokenizer = transformers.AutoTokenizer.from_pretrained('allenai/scibert_scivocab_uncased')
-# model = transformers.AutoModelForTokenClassification.from_pretrained('allenai/scibert_scivocab_uncased', num_labels=len(label_list))
 
 
 # # 1. Data Pre-Processing
@@ -54,6 +53,8 @@ label_list = ['O',
           'I-enzyme',
           'I-PRODUCT-OF'
          ]
+model = transformers.AutoModelForTokenClassification.from_pretrained('allenai/scibert_scivocab_uncased', num_labels=len(label_list))
+# model = torch.nn.DataParallel(model)
 
 
 # ## 1.1-2 Loading the chemprot data from SciBERT into Primary Data
@@ -136,7 +137,8 @@ example
 # In[7]:
 
 
-tokenized_input = tokenizer(example["tokens"], is_split_into_words=True)
+tokenized_input = tokenizer(example["tokens"], 
+is_split_into_words=True)
 tokens = tokenizer.convert_ids_to_tokens(tokenized_input["input_ids"])
 print(tokens)
 
@@ -276,7 +278,7 @@ def compute_metrics(p) -> dict:
 # Defining necessary functions as args.
 
 # In[16]:
-1
+
 
 # Model_init for hyperparameter search 
 # ref: https://huggingface.co/blog/ray-tune
@@ -287,27 +289,27 @@ def model_init():
 # In[ ]:
 
 
-training_args = transformers.TrainingArguments(
-    f"test-ner",
-    evaluation_strategy = "epoch",
-    learning_rate=2e-5,
-    per_device_train_batch_size=1,
-    per_device_eval_batch_size=1,
-    num_train_epochs=3,
-    weight_decay=0.01,
-)
+# training_args = transformers.TrainingArguments(
+#     f"test-ner",
+#     evaluation_strategy = "epoch",
+#     learning_rate=2e-5,
+#     per_device_train_batch_size=1,
+#     per_device_eval_batch_size=1,
+#     num_train_epochs=3,
+#     weight_decay=0.01,
+# )
 
-trainer = transformers.Trainer(
-    args=training_args,                  # training arguments, defined above
-    train_dataset=train_data,         # training dataset
-    tokenizer=tokenizer,
-    data_collator=transformers.DataCollatorForTokenClassification(tokenizer),
-    eval_dataset=val_data,             # evaluation dataset
-    compute_metrics=compute_metrics,
-    model_init=model_init,
-)
+# trainer = transformers.Trainer(
+#     args=training_args,                  # training arguments, defined above
+#     train_dataset=train_data,         # training dataset
+#     tokenizer=tokenizer,
+#     data_collator=transformers.DataCollatorForTokenClassification(tokenizer),
+#     eval_dataset=val_data,             # evaluation dataset
+#     compute_metrics=compute_metrics,
+#     model_init=model_init,
+# )
 
-trainer.train()
+# trainer.train()
 
 
 # ### 2.3 Testing
@@ -317,13 +319,13 @@ trainer.train()
 # In[ ]:
 
 
-predictions = trainer.predict(test_data)
+# predictions = trainer.predict(test_data)
 
 
 # In[ ]:
 
 
-compute_metrics(predictions[0:2])
+# compute_metrics(predictions[0:2])
 
 
 # ### 2.4 Hyperparameter search??
@@ -361,32 +363,40 @@ compute_metrics(predictions[0:2])
 # In[ ]:
 
 
-# from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader
 
-# device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
-# print(device)
+device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
-# model.train()
+torch.cuda.empty_cache()
+model.to(device)
+model.train()
 
-# torch.manual_seed(10)
-# BATCH_SIZE = 64
-# train_loader = DataLoader(train_data, batch_size=BATCH_SIZE, shuffle=False, drop_last=True)
 
-# optim = transformers.AdamW(model.parameters(), lr=5e-5)
+torch.manual_seed(10)
+BATCH_SIZE = 4
+num_epochs = 3
+train_loader = DataLoader(train_data, batch_size=BATCH_SIZE, shuffle=False, drop_last=True)
 
-# for epoch in range(3):
-#     for i, batch in enumerate(train_loader):
-#         print(f'Doing epoch {epoch}, entries {i*BATCH_SIZE} to {(i+1)*BATCH_SIZE} out of {len(train_loader)}')
-#         optim.zero_grad()
-#         input_ids = batch['input_ids'].to(device)
-#         attention_mask = batch['attention_mask'].to(device)
-#         labels = batch['labels'].to(device)
-#         outputs = model(input_ids, attention_mask=attention_mask, labels=labels)
-#         loss = outputs[0]
-#         loss.backward()
-#         optim.step()
+optim = transformers.AdamW(model.parameters(), lr=5e-5)
 
-# model.eval()
+from tqdm.auto import tqdm
+progress_bar = tqdm(range(num_epochs * len(train_loader)))
+
+for epoch in range(num_epochs):
+    for i, batch in enumerate(train_loader):
+        # print(f'Doing epoch {epoch}, entries {i*BATCH_SIZE} to {(i+1)*BATCH_SIZE} out of {len(train_loader)}')
+        optim.zero_grad()
+        input_ids = batch['input_ids'].to(device)
+        attention_mask = batch['attention_mask'].to(device)
+        labels = torch.tensor(batch['labels']).to(device)
+        outputs = model(input_ids, attention_mask=attention_mask, labels=labels)
+        loss = outputs[0]
+        loss.backward()
+        optim.step()
+        progress_bar.update(1)
+
+
+model.eval()
 
 
 # In[ ]:
@@ -480,3 +490,4 @@ compute_metrics(predictions[0:2])
 
 
 # 
+
