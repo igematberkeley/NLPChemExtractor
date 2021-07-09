@@ -1,3 +1,0 @@
--e git://github.com/ibeltagy/allennlp@fp16_and_others#egg=allennlp
-jsonlines
-lxml
