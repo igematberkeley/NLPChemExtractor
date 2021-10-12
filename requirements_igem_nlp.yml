@@ -1,0 +1,11 @@
+name: igem_nlp_env
+channels:
+  - defaults
+  - pytorch
+  - huggingface
+dependencies:
+  - numpy
+  - pandas
+  - matplotlib
+  - pytorch
+  - transformers
