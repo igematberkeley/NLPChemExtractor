@@ -15,6 +15,7 @@ import pandas as pd
 import csv
 import re
 from collections import OrderedDict
+import pprint
 
 
 # In[2]:
@@ -328,39 +329,25 @@ def model_init():
 # compute_metrics(predictions[0:2])
 
 
-# ### 2.4 Hyperparameter search??
+def get_labels(predictions, references):
+    # Transform predictions and references tensos to numpy arrays
+    if device.type == "cpu":
+        y_pred = predictions.detach().clone().numpy()
+        y_true = references.detach().clone().numpy()
+    else:
+        y_pred = predictions.detach().cpu().clone().numpy()
+        y_true = references.detach().cpu().clone().numpy()
 
-# In[ ]:
-
-
-#trainer.hyperparameter_search(direction="maximize")
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
+    # Remove ignored index (special tokens)
+    true_predictions = [
+        [label_list[p] for (p, l) in zip(pred, gold_label) if l != -100]
+        for pred, gold_label in zip(y_pred, y_true)
+    ]
+    true_labels = [
+        [label_list[l] for (p, l) in zip(pred, gold_label) if l != -100]
+        for pred, gold_label in zip(y_pred, y_true)
+    ]
+    return true_predictions, true_labels
 
 
 from torch.utils.data import DataLoader
@@ -373,94 +360,92 @@ model.train()
 
 
 torch.manual_seed(10)
-BATCH_SIZE = 4
+BATCH_SIZE = 32
 num_epochs = 3
 train_loader = DataLoader(train_data, batch_size=BATCH_SIZE, shuffle=False, drop_last=True)
+#validation_loader = DataLoader(val_data, batch_size=BATCH_SIZE, shuffle=False, drop_last=True)
 
 optim = transformers.AdamW(model.parameters(), lr=5e-5)
 
 from tqdm.auto import tqdm
 progress_bar = tqdm(range(num_epochs * len(train_loader)))
 
+losses = []
+rounds = []
+
 for epoch in range(num_epochs):
     for i, batch in enumerate(train_loader):
-        # print(f'Doing epoch {epoch}, entries {i*BATCH_SIZE} to {(i+1)*BATCH_SIZE} out of {len(train_loader)}')
+        # print(f'Doing epoch {epoch}, entries {i*BATCH_SIZE} to {(i+1)*BATCH_SIZE} out of {len(train_loader)}', end='\r')
         optim.zero_grad()
         input_ids = batch['input_ids'].to(device)
         attention_mask = batch['attention_mask'].to(device)
-        labels = torch.tensor(batch['labels']).to(device)
+        labels = torch.stack(batch['labels'], dim=0).to(device)
         outputs = model(input_ids, attention_mask=attention_mask, labels=labels)
         loss = outputs[0]
+        
         loss.backward()
         optim.step()
         progress_bar.update(1)
-
-
-model.eval()
-
-
-# In[ ]:
-
-
-
+        print(f'Loss: {loss}', end='\r')
+        
+        #losses.append(float(str(loss)))
+        # rounds.append(i)
 
 
 # In[ ]:
+metric = datasets.load_metric("seqeval")
+progress_bar = tqdm(range(len(train_loader)))
+with torch.no_grad():
+    model.eval() # Put model in eval mode
+    num_correct = 0
+    # Training accuracy
+    for i, batch in enumerate(train_loader):
+        input_ids = batch['input_ids'].to(device)
+        attention_mask = batch['attention_mask'].to(device)
+        labels = torch.stack(batch['labels'], dim=0).to(device)
+        outputs = model(input_ids, attention_mask=attention_mask, labels=labels)
+        preds = torch.argmax(outputs.logits, dim=2)
+        refs = torch.transpose(labels, 0, 1)
+        num_correct += torch.sum(preds == refs).item()
 
+        # add to metric
+        preds, refs = get_labels(outputs.logits.argmax(dim=2), labels.T)
+        metric.add_batch(predictions=preds, references=refs)
+        progress_bar.update(1)
 
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
+    print("Final Training Metrics:")
+    results = metric.compute()
+    pprint.PrettyPrinter().pprint(results)
 
 # In[ ]:
+validation_loader = DataLoader(val_data, batch_size=BATCH_SIZE, shuffle=False, drop_last=True)
+metric = datasets.load_metric("seqeval")
+progress_bar = tqdm(range(len(validation_loader)))
+# Validation accuracy
+with torch.no_grad():
+    num_correct = 0 
+    for i, batch in enumerate(validation_loader):
+        input_ids = batch['input_ids'].to(device)
+        attention_mask = batch['attention_mask'].to(device)
+        labels = torch.stack(batch['labels'], dim=0).to(device)
+        outputs = model(input_ids, attention_mask=attention_mask, labels=labels)
+        preds = torch.argmax(outputs.logits, dim=2)
+        refs = torch.transpose(labels, 0, 1)
+        num_correct += torch.sum(preds == refs).item()
+
+        # add to metric
+        preds, refs = get_labels(outputs.logits.argmax(dim=2), labels.T)
+        metric.add_batch(predictions=preds, references=refs)
+        progress_bar.update(1)
 
 
+        # num_correct += torch.sum(torch.argmax(outputs[1], dim=1) == labels).item()
+    
+    print("Final Validation Metrics:")
+    results = metric.compute()
+    pprint.PrettyPrinter().pprint(results)
 
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
+    model.train() # Put model back in train mode
 
 
 
@@ -469,25 +454,4 @@ model.eval()
 
 
 
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# 
 
