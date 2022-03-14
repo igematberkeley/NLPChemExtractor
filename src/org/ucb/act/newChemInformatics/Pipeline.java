@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+/** @author Cassandra Areff **//
+
 public class Pipeline {
 
     // since hashmaps cannot have primitives like our doubles for mass, do we just round to integers and check those?
