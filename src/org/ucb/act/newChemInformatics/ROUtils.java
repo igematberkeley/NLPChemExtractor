@@ -3,6 +3,7 @@ package newChemInformatics;
 import chemaxon.formats.MolImporter;
 import chemaxon.struc.Molecule;
 import chemaxon.struc.RxnMolecule;
+import chemaxon.reaction.Reactor;
 import org.ucb.act.ROProjection.Parser;
 import smile.neighbor.lsh.Hash;
 
@@ -14,7 +15,7 @@ import static java.lang.StrictMath.abs;
 
 public class ROUtils {
 
-    /** @author Bryan Hsu **/
+    /** @author Bryan Hsu and Cassandra Areff **/
     /** shamelessly reusing original ROUtils methods **/
 
     public static void main(String[] args) throws Exception{
@@ -58,6 +59,25 @@ public class ROUtils {
             prod_mass = prod_mass + mass;
         }
         return abs(reac_mass - prod_mass);
+    }
+    public static boolean test_ro(String ro, Molecule substrate, Molecule product) {
+
+        RxnMolecule reaction = RxnMolecule.getReaction(MolImporter.importMol(ro));
+        Molecule[] subArray = new Molecule[]{substrate};
+
+        Reactor reactor = new Reactor();
+        reactor.setReaction(reaction);
+        reactor.setReactants(subArray);
+
+        products = reactor.react();
+        if (products != null) {
+            for (Molecule pro: products) {
+                if (InChIUtils.get_mol_as_inchi(product) == InChIUtils.get_mol_as_inchi(pro)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

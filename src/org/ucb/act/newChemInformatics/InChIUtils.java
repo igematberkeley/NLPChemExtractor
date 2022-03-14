@@ -15,19 +15,19 @@ import static java.lang.StrictMath.abs;
 
 public class InChIUtils {
 
-    public double get_mass_difference(String substrate, String product) {
+    public static double get_mass_difference(String substrate, String product) {
         Molecule sub = get_inchi_as_mol(substrate);
         Molecule pro = get_inchi_as_mol(product);
         return get_mass_difference(sub, pro);
     }
 
-    public double get_mass_difference(Molecule substrate, Molecule product) {
+    public static double get_mass_difference(Molecule substrate, Molecule product) {
         double sub_mass = substrate.getExactMass();
         double pro_mass = product.getExactMass();
         return abs(sub_mass - pro_mass);
     }
 
-    public Molecule get_inchi_as_mol(String inchi) {
+    public static Molecule get_inchi_as_mol(String inchi) {
         try {
             Molecule mol = MoleImporter.importMol(inchi);
             return Molecule;
@@ -36,7 +36,7 @@ public class InChIUtils {
         }
     }
 
-    public String get_mol_as_inchi(Molecule mol) {
+    public static String get_mol_as_inchi(Molecule mol) {
         try {
             return MoleExporter.exportToFormat(mol, "inchi:AuxNone,Woff");
         } catch (IOException e) {
