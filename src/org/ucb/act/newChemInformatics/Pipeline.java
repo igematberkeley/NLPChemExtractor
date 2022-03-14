@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
-/** @author Cassandra Areff **//
+/** @author Cassandra Areff **/
 
 public class Pipeline {
 
