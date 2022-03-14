@@ -18,6 +18,7 @@ public class ROUtils {
     /** @author Bryan Hsu and Cassandra Areff **/
     /** shamelessly reusing original ROUtils methods **/
 
+    /** testing the functions in this class **/
     public static void main(String[] args) throws Exception{
         //a test to demonstrate that we can output mass differences successfully
         Parser parser = new Parser();
@@ -28,10 +29,12 @@ public class ROUtils {
         }
     }
 
+    /** in progress, may discard, but intended to pair sub and pro of ro if implemented **/
     public ArrayList<HashMap> pair(String ro){
         return null;
     }
 
+    /** expands the ro to get the substrates and products **/
     private static HashMap<String, Molecule[]> explode(String ro) throws Exception {
         RxnMolecule rxn = RxnMolecule.getReaction(MolImporter.importMol(ro));
         Molecule[] substrates = rxn.getReactants();
@@ -42,6 +45,7 @@ public class ROUtils {
         return rxn_species;
     }
 
+    /** gets the mass difference for an ro **/
     private static double get_mass_difference(String ro) throws Exception {
         HashMap<String, Molecule[]> species = explode(ro);
         Molecule[] reactants = species.get("Reactants");
@@ -60,6 +64,9 @@ public class ROUtils {
         }
         return abs(reac_mass - prod_mass);
     }
+
+    /** for a specific ro it applies the ro to the substrate and sees if the
+     * product matches the possible products **/
     public static boolean test_ro(String ro, Molecule substrate, Molecule product) {
 
         RxnMolecule reaction = RxnMolecule.getReaction(MolImporter.importMol(ro));
