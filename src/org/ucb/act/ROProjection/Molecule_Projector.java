@@ -5,7 +5,6 @@ import java.util.Arrays;
 
 import chemaxon.formats.MolFormatException;
 import chemaxon.formats.MolImporter;
-import chemaxon.marvin.io.formats.name.nameexport.Chem;
 import chemaxon.struc.Molecule;
 import org.ucb.act.ro.Combination;
 import java.util.HashMap;

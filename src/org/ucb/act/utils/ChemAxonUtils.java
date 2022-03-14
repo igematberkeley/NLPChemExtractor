@@ -120,15 +120,16 @@ public class ChemAxonUtils {
     }
 
     public static void license() throws Exception {
-        String licensepath = "C:/Users/Arjun Chandran/Documents/NLPchem/NLPChemExtractor/chemaxon_license/license_chemaxon.cxl";
+        String licensepath = "/license_chemaxon.cxl";
 
-        File afile = new File(licensepath);
+        File afile = new File(System.getProperty("user.dir")+licensepath);
+        System.out.println(afile);
         if (!afile.exists()) {
-            System.err.println("No license file, put a valid one at /chemaxon_license/license_chemaxon.cxl");
+            System.err.println("No license file, put a valid one at license_chemaxon.cxl");
             throw new RuntimeException("Missing license");
         }
 
-        String lics = FileUtils.readFile(licensepath);
+        //String lics = FileUtils.readFile(licensepath);
         LicenseManager.setLicenseFile(afile.getAbsolutePath());
     }
 
