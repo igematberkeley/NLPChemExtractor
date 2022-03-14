@@ -2,18 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cfa08412-5913-472d-b5dc-21547387f0c2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Pipeline.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../../../.idea/libraries/org_apache_spark_spark_core_2_10_1_0_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.idea/libraries/org_apache_spark_spark_core_2_10_1_0_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../../../.idea/libraries/org_apache_spark_spark_mllib_2_10_1_0_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.idea/libraries/org_apache_spark_spark_mllib_2_10_1_0_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../../../.idea/libraries/org_apache_spark_spark_sql_2_10_1_0_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.idea/libraries/org_apache_spark_spark_sql_2_10_1_0_2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../../../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/InChIUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/InChIUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ROUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/ROUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../.." />
@@ -45,5 +51,16 @@
       <updated>1647218885325</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
