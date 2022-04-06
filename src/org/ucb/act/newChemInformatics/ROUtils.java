@@ -1,6 +1,8 @@
 package newChemInformatics;
 
+import chemaxon.formats.MolFormatException;
 import chemaxon.formats.MolImporter;
+import chemaxon.reaction.ReactionException;
 import chemaxon.struc.Molecule;
 import chemaxon.struc.RxnMolecule;
 import chemaxon.reaction.Reactor;
@@ -67,16 +69,29 @@ public class ROUtils {
 
     /** for a specific ro it applies the ro to the substrate and sees if the
      * product matches the possible products **/
-    public static boolean test_ro(String ro, Molecule substrate, Molecule product) {
+    public static boolean test_ro(String ro, Molecule substrate, Molecule product) throws MolFormatException {
 
         RxnMolecule reaction = RxnMolecule.getReaction(MolImporter.importMol(ro));
         Molecule[] subArray = new Molecule[]{substrate};
 
         Reactor reactor = new Reactor();
-        reactor.setReaction(reaction);
-        reactor.setReactants(subArray);
+        try {
+            reactor.setReaction(reaction);
+        } catch (ReactionException e) {
+            e.printStackTrace();
+        }
+        try {
+            reactor.setReactants(subArray);
+        } catch (ReactionException e) {
+            e.printStackTrace();
+        }
 
-        products = reactor.react();
+        Molecule[] products = new Molecule[0];
+        try {
+            products = reactor.react();
+        } catch (ReactionException e) {
+            e.printStackTrace();
+        }
         if (products != null) {
             for (Molecule pro: products) {
                 if (InChIUtils.get_mol_as_inchi(product) == InChIUtils.get_mol_as_inchi(pro)) {

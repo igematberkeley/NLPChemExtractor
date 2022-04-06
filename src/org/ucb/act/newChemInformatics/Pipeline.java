@@ -1,5 +1,6 @@
 package newChemInformatics;
 
+import chemaxon.formats.MolFormatException;
 import chemaxon.formats.MolImporter;
 import chemaxon.struc.Molecule;
 import chemaxon.struc.RxnMolecule;
@@ -10,6 +11,8 @@ import smile.neighbor.lsh.Hash;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+
+import static newChemInformatics.ROUtils.test_ro;
 
 /** @author Cassandra Areff **/
 
@@ -31,7 +34,7 @@ public class Pipeline {
     }
 
     /** checks if the ros applied to the substrate produces the product **/
-    public static boolean viable_rxn(String[] ros) {
+    public boolean viable_rxn(String[] ros) throws MolFormatException {
         for (String ro: ros) {
             Boolean ro_valid = test_ro(ro, substrate, product);
             if (ro_valid) {
@@ -43,11 +46,11 @@ public class Pipeline {
 
     public static void main(String[] args) {
         String[] ros = new String[]{"example"};
-        substrate = InChIUtils.get_inchi_as_mol("somthing");
-        product = InChIUtils.get_inchi_as_mol("somthing");
+        Molecule substrate = InChIUtils.get_inchi_as_mol("somthing");
+        Molecule product = InChIUtils.get_inchi_as_mol("somthing");
         HashMap<Integer, String[]> ro_database = create_ro_hashmap(ros);
         String[] possible_ros = check_rxn(ro_database);
-        System.out.println(viable_rxn(possible_ros));
+        //System.out.println(viable_rxn(possible_ros));
     }
 
     private Molecule substrate;
