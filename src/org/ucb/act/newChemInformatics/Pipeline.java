@@ -45,6 +45,8 @@ public class Pipeline {
     public static String[] check_rxn(HashMap<Integer, String[]> ros) {
         // get rid of cofactors in the mass difference!!
         Integer mass_difference = InChIUtils.get_mass_difference(substrate, product);
+        // here to make sure molecules are normalized/neutralized properly
+        System.out.println(mass_difference);
         try {
             String[] ro_options = ros.get(mass_difference);
             return ro_options;
@@ -70,20 +72,21 @@ public class Pipeline {
 
     public static void main(String[] args) {
         System.out.println("create hash map testing");
-        String[] roInchi = new String[]{"[#6:1]-[#6:7]=O>>[H][#7]([H])-[#6:7]([H])-[#6:1]", "[#6:2]-[#16:3]-[#6:4]>>[H]C([H])([H])[S+:3]([#6:2])[#6:4]"};
+        String[] roInchi = new String[]{"[#6:1]-[#6:7]=O>>[H][#7]([H])-[#6:7]([H])-[#6:1]", "[#6:2]-[#16:3]-[#6:4]>>[H]C([H])([H])[S+:3]([#6:2])[#6:4]", "[#6:2]-[#6:1]=[O:12]>>[H][#8:12]-[#6:1]([H])-[#6:2]"};
         HashMap<Integer, String[]> masses = create_ro_hashmap(roInchi);
         System.out.println(masses.keySet());
-        System.out.println(masses.get(89084)[0]);
+        System.out.println(masses.get(90068)[0]);
         String ro = "[#6:1]-[#6:7]=O>>[H][#7]([H])-[#6:7]([H])-[#6:1]";
-        try {
-            HashMap<String, Molecule[]> exploded = ROUtils.explode(ro);
-            substrate = exploded.get("Reactants");
-            product =  exploded.get("Products");
-            System.out.println(check_rxn(masses).length);
-            //System.out.println(viable_rxn(check_rxn(masses))); need one to one to test
-        } catch (Exception e) {
-            System.out.println("invalid ro lol");
-        }
+        substrate = new Molecule[]{InChIUtils.get_inchi_as_mol("InChI=1S/C4H8O/c1-2-3-4-5/h4H,2-3H2,1H3")};
+        product =  new Molecule[]{InChIUtils.get_inchi_as_mol("InChI=1S/C4H10O/c1-2-3-4-5/h5H,2-4H2,1H3")};
+        // can do once we normalize/neutralize the molecules
+//        System.out.println(check_rxn(masses).length);
+//        System.out.println(check_rxn(masses)[0]);
+//        try {
+//            System.out.println(viable_rxn(check_rxn(masses))); //need one to one to test
+//        } catch (MolFormatException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private static Molecule[] substrate;
