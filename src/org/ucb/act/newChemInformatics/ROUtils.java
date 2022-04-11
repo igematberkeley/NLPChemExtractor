@@ -37,7 +37,7 @@ public class ROUtils {
     }
 
     /** expands the ro to get the substrates and products **/
-    private static HashMap<String, Molecule[]> explode(String ro) throws Exception {
+    public static HashMap<String, Molecule[]> explode(String ro) throws Exception {
         RxnMolecule rxn = RxnMolecule.getReaction(MolImporter.importMol(ro));
         Molecule[] substrates = rxn.getReactants();
         Molecule[] products = rxn.getProducts();
