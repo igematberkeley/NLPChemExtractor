@@ -5,6 +5,7 @@ import chemaxon.jep.function.In;
 import chemaxon.standardizer.Standardizer;
 import chemaxon.struc.Molecule;
 import com.sun.xml.bind.api.impl.NameConverter;
+import org.ucb.act.utils.ChemAxonUtils;
 
 import java.util.*;
 
@@ -87,7 +88,9 @@ public class Pipeline {
         return false;
     }
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws Exception {
+        ChemAxonUtils.license();
         System.out.println("create hash map testing");
         String[] roInchi = new String[]{"[#6:1]-[#6:7]=O>>[H][#7]([H])-[#6:7]([H])-[#6:1]", "[#6:2]-[#16:3]-[#6:4]>>[H]C([H])([H])[S+:3]([#6:2])[#6:4]", "[#6:2]-[#6:1]=[O:12]>>[H][#8:12]-[#6:1]([H])-[#6:2]"};
         HashMap<Integer, String[]> masses = create_ro_hashmap(roInchi);
