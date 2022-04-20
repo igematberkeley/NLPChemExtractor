@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dd374cfb-c13c-423a-b0f3-db679efe09c6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/org_apache_spark_spark_core_2_10_1_0_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/org_apache_spark_spark_core_2_10_1_0_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/org_apache_spark_spark_mllib_2_10_1_0_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/org_apache_spark_spark_mllib_2_10_1_0_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/org_apache_spark_spark_sql_2_10_1_0_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/org_apache_spark_spark_sql_2_10_1_0_2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/org/ucb/act/newChemInformatics/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/org/ucb/act/newChemInformatics/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +37,9 @@
         <option value="$PROJECT_DIR$/Cheminformatics/src/org/ucb/act/ROProjection/ReactionValidation.java" />
       </list>
     </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="970" />
@@ -131,7 +132,7 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1618769795080" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/org/ucb/act" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../repo/hw8" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />

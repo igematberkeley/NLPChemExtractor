@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--PLEASE DO NOT MODIFY THIS FILE AND BE AWARE THAT THE FILE CONTAINS CONFIDENTIAL INFORMATION.--><ChemAxon>
+    <License>
+        <Field Name="Software" Value="Marvin Beans"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Signature Value="MCwCFEFkAuM3VF9ZHYrhpdZyvpedUScTAhRGF24DU5jAt0aqbu71e2qduYZ4bA=="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="Instant JChem"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Restriction Name="B/S/P/E" Value="Enterprise"/>
+        <Signature Value="MCwCFASsreRIYfTEy3qdHXkL60+eiEcdAhRXjozT0/Kqog38nDTtnYd5MsNGRQ=="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="Standardizer"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Restriction Name="B/S/P/E" Value="Standard"/>
+        <Signature Value="MC0CFQCDpzCgu/JHSH3x/KamiGuoHhERXwIUGV9fK6ZiEZEf2xLLULyo59HYdRU="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="Screen"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Signature Value="MCwCFCpv2zzJ48a27ABC0EfqJ709dNEiAhQDuWLr868Z2mAZSFM21KV3rgNMTA=="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="Reactor"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Signature Value="MCwCFDqM2/LAyw8/RQbuseihsl255cB8AhRY34GIzsY11bGN05saMRVeJf00/Q=="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="JKlustor"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Restriction Name="B/S/P/E" Value="Standard"/>
+        <Signature Value="MCwCFBCj5hwwo6gbVSYTBtDJzm54v9DDAhRPRC6VWz7qXVHycZIRzcjGYDVv8w=="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="Markush Search"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Signature Value="MC0CFC3LLSU4QtpM6mEzsJD6brl+fQKiAhUAgyYjgFJKdiOan685rJFVZx2b62Y="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="Protonation Plugin Group"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Signature Value="MCwCFGlJhhD6q/ToFIfSCM/YCRF3a7+pAhR9O6OtWS4LZLWTiXLp76kdK4Ty+Q=="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="Partitioning Plugin Group"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Signature Value="MCwCFHn8vsBfkoDB38Y1EC7ONDiw+NpbAhRqw+dJEXmApQqpKPOH0v/eoeAUOg=="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="Isomers Plugin Group"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Signature Value="MC0CFQCNP5GmHsV7clxqe0NfDRRctnf/cwIUG2wfmPHTk2Bz/VSQv+5IC4nhtLw="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="Markush Enumeration Plugin"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Signature Value="MCwCFAzUhUx3t9oVk+y3K4Ot2VEvODk8AhQfbDIvxI1bbIoO/mnOzL0r4mKT3g=="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="Name to Structure"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Signature Value="MCwCFBUrrGqKvFim4aFCEdBbp1eWJ19sAhQYD2q9FWewL6A+wA3mQ5jzFHaLUw=="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="JChem for Excel"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Signature Value="MCwCFBeseJrgB99qNo0KabgfIPPnMCd9AhQFQtOLjftRMId3ueftIyqmjTXXhg=="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="Structure Checker"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Signature Value="MCwCFEM3+SFgqt3G0krhlweP23dAKvcTAhRYrLRzy2oJ8nJu8ZDXbBgWSO6OVg=="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="MCES"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Signature Value="MCwCFH1aEjFQFNshIlNGw7pt/ZasE3hgAhQOT+qDNzV+5o8xKGB8oYgTQi6zyA=="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="3D Screen"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Signature Value="MCwCFEL6np3bh8wP8Lp6JRWa8PAQkIwKAhQZI3YJ8+Sze3cOZ2DPZaQatihwZg=="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="Molecular Descriptors"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Signature Value="MC0CFBRv2oSTQZRKvkbE4aBv8otTJSh0AhUAlgsecML8RnoH3F4pLUY3laOZF24="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="ECFP/FCFP"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Signature Value="MCwCFEkWDN/O1bm+5GlDP0UBRnyQgDiwAhR8Cl3Ja+G6epKl+xyU19H6x33lKA=="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="Structure to Name"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Signature Value="MCwCFC1GlkwGVop6TJPpW0G1lUXYYiugAhRSl2iQ4Y8pZhYdWJteKzYjkZr/2w=="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="NMR Predictor"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Signature Value="MC0CFQCLbZdGx4yMwvaPuE/ViVFmrN5IhQIUNO+EVoUIscw0IZcdOtj6UwnOAHQ="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="JChem for Office"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Signature Value="MCwCFBByA0uba5BfcdFRMOOwuWhe24OzAhRoyV4//GpG4hA/3aldvou3SeDbJw=="/>
+    </License>
+    <License>
+        <Field Name="Software" Value="Solubility Plugin"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Signature Value="MCsCEyOt+fgjvXu8L+OnBaq+T/tQ3YkCFFt7MJIcRVT26amwXl2ByIOyt+fK"/>
+    </License>
+    <License>
+        <Field Name="Software" Value="Structural Calculations"/>
+        <Field Name="License Term" Value="Academic Teaching"/>
+        <Field Name="Licensee" Value="ChemAxon"/>
+        <Field Name="Number of Users" Value="Unlimited"/>
+        <Field Name="Expiration Date" Value="2023-07-29"/>
+        <Field Name="Support Expiration Date" Value="2023-07-29"/>
+        <Field Name="Comment" Value="[Academia] Teaching"/>
+        <Signature Value="MCwCFE6QKjM/MSwW+/6Lw4at+4RdKVP1AhQcSi+n6X/L5n6+uKu0HOKKkYjhJQ=="/>
+    </License>
+</ChemAxon>

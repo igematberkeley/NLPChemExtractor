@@ -36,11 +36,13 @@ public class InChIUtils {
     public static Integer get_mass_difference(Molecule[] substrates, Molecule[] products) {
         double sub_mass = 0;
         double pro_mass = 0;
+        substrates = Pipeline.standardize(substrates);
+        products = Pipeline.standardize(products);
         for (Molecule sub:substrates) {
-            sub_mass += sub.getExactMass();
+            sub_mass =+ sub.getExactMass();
         }
         for (Molecule pro:products) {
-            sub_mass += pro.getExactMass();
+            pro_mass += pro.getExactMass();
         }
         Double difference = abs(sub_mass - pro_mass) * 1000;
         Integer difference_rounded = difference.intValue();

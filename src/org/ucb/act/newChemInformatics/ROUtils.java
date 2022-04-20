@@ -50,8 +50,8 @@ public class ROUtils {
     /** gets the mass difference for an ro **/
     private static double get_mass_difference(String ro) throws Exception {
         HashMap<String, Molecule[]> species = explode(ro);
-        Molecule[] reactants = species.get("Reactants");
-        Molecule[] products = species.get("Products");
+        Molecule[] reactants = Pipeline.standardize(species.get("Reactants"));
+        Molecule[] products = Pipeline.standardize(species.get("Products"));
         double reac_mass = 0;
         double prod_mass = 0;
         for(int i = 0; i < reactants.length; i++){
