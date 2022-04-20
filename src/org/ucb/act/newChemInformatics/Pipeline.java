@@ -2,7 +2,9 @@ package newChemInformatics;
 
 import chemaxon.formats.MolFormatException;
 import chemaxon.jep.function.In;
+import chemaxon.standardizer.Standardizer;
 import chemaxon.struc.Molecule;
+import com.sun.xml.bind.api.impl.NameConverter;
 
 import java.util.*;
 
@@ -23,6 +25,8 @@ public class Pipeline {
                 Molecule[] reactants = exploded.get("Reactants");
                 Molecule[] products = exploded.get("Products");
                 // get rid of cofactors here in the future
+                standardize(reactants);
+                standardize(products);
                 Integer mass_difference = InChIUtils.get_mass_difference(reactants, products);
                 try {
                     List<String> new_ros = Arrays.asList(ro_hash.get(mass_difference));
@@ -56,6 +60,19 @@ public class Pipeline {
         return null;
     }
 
+    public static void standardize(Molecule[] molArray){
+        Standardizer aromatizer = new Standardizer("aromatize");
+        Standardizer neutralizer = new Standardizer("neutralize");
+        Standardizer tautomerizer = new Standardizer("tautomerize");
+        Standardizer addExplicitH = new Standardizer("addexplicitH");
+        for(int i = 0; i< molArray.length; i++){
+            aromatizer.standardize(molArray[i]);
+            neutralizer.standardize(molArray[i]);
+            tautomerizer.standardize(molArray[i]);
+            addExplicitH.standardize(molArray[i]);
+        }
+    }
+
     /** checks if the ros applied to the substrate produces the product **/
     public static boolean viable_rxn(String[] ros) throws MolFormatException {
         // unsure if this works oop
@@ -80,13 +97,13 @@ public class Pipeline {
         substrate = new Molecule[]{InChIUtils.get_inchi_as_mol("InChI=1S/C4H8O/c1-2-3-4-5/h4H,2-3H2,1H3")};
         product =  new Molecule[]{InChIUtils.get_inchi_as_mol("InChI=1S/C4H10O/c1-2-3-4-5/h5H,2-4H2,1H3")};
         // can do once we normalize/neutralize the molecules
-//        System.out.println(check_rxn(masses).length);
-//        System.out.println(check_rxn(masses)[0]);
-//        try {
-//            System.out.println(viable_rxn(check_rxn(masses))); //need one to one to test
-//        } catch (MolFormatException e) {
-//            e.printStackTrace();
-//        }
+        System.out.println(check_rxn(masses).length);
+        System.out.println(check_rxn(masses)[0]);
+        try {
+            System.out.println(viable_rxn(check_rxn(masses))); //need one to one to test
+        } catch (MolFormatException e) {
+            e.printStackTrace();
+        }
     }
 
     private static Molecule[] substrate;
